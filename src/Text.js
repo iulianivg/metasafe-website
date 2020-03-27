@@ -41,24 +41,7 @@ const words240 = require("./240words");
 
 export default class Text extends React.Component {
     state = {
-        value: 'Infura',
-        myarray:[                    <div>
-                    <Grid container>
-
-            <Grid item xs={11} sm={11}>
-            <TextField fullWidth  id="outlined-basic" label="Infura API" variant="outlined" onChange={(event) => this.setState({infuraLink:event.target.value})} />
-            </Grid>
-            <Grid item xs={1} sm={1}>
-            <Tooltip title="Your infura.io key. It looks like this: https://mainnet.infura.io/v3/apiKey">
-          <HelpIcon />
-
-      </Tooltip>
-            </Grid>
-            </Grid>
-      </div>],
-      metaFunction:'lastWord',
       termsAgree:"I Agree",
-      infuraLink:'https://mainnet.infura.io/v3/4b6cf47f5f6e4aca850c45c04a58cf0d',
       word1:'',
       word2:'',
       word3:'',
@@ -71,13 +54,11 @@ export default class Text extends React.Component {
       word10:'',
       word11:'',
       word12:'',
-      textOutput:[],
       showInfo:false,
       mnemonicLegit:false,
       mnemonicDuplicates:false,
       consecutiveLetters:false,
       wordsFrom10:0,
-      loading:false,
       mydata: {},
       counterMnemonic:0,
     }
@@ -90,88 +71,8 @@ export default class Text extends React.Component {
     [b]: (a[b] || 0) + 1
     }), {})
 
-    checkEthereumNode = async() => {
-      let web3;
-      let apiLink;
-      if(this.state.value == 'Infura'){
-        /// to do for rinkeby and other test networks
-        if(this.state.infuraLink.includes('https://mainnet.infura.io/v3/') == true){
-            apiLink = this.state.infuraLink;
-        }
-    }
-    if(this.state.value == "Metamask"){
-    if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
-        web3 = new Web3(window.web3.currentProvider);
-      }
-     } else {
-      
-        const provider = new Web3.providers.HttpProvider(apiLink
-          // pass url of remote node
-        );
-        web3 = new Web3(provider);
-      };
-      
-    }
 
-    //// function to check for last word
-    lastWord = async() => {
-        let web3;
-        let apiLink;
-        if(this.state.value == 'Infura'){
-            /// to do for rinkeby and other test networks
-            if(this.state.infuraLink.includes('https://mainnet.infura.io/v3/') == true){
-                apiLink = this.state.infuraLink;
-            }
-        }
-        if(this.state.value == "Metamask"){
-        if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
-            web3 = new Web3(window.web3.currentProvider);
-          }
-         } else {
-          
-            const provider = new Web3.providers.HttpProvider(apiLink
-              // pass url of remote node
-            );
-            web3 = new Web3(provider);
-          };
 
-          ///
-          let walletPath = {
-            "standard": `m/44'/60'/0'/0/0`,
-            // m/44'/60'/0' LEDGER (ETH)
-            // @TODO: Include some non-standard wallet paths
-        };
-        ///
-          var mnemonic = [];
-          let nfound = 0;
-          mnemonic.push(this.state.word1,this.state.word2, this.state.word3,this.state.word4,this.state.word5,this.state.word6,this.state.word7,this.state.word8,this.state.word9,this.state.word10,this.state.word11,this.state.word12);
-          for(var i=0;i<2048;i++){
-            let mnemonicCounter = i/2047*100;
-            if(this.state.loading === false){
-                var output = [];
-                this.setState({textOutput:output})
-                break;
-            }
-            this.setState({counterMnemonic:mnemonicCounter.toFixed(2)});
-            mnemonic[11]=words[i];
-            let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(mnemonic.join(" "));
-            if(mnemonicValid === true){
-                var output = this.state.textOutput;
-                let hdnode = ethers.utils.HDNode.fromMnemonic(mnemonic.join(" "));
-                let node = hdnode.derivePath(walletPath.standard);
-                let wallet = new ethers.Wallet(node.privateKey);
-                let balance = await web3.eth.getBalance(wallet.address);
-                balance = web3.utils.fromWei(balance, 'ether');
-                // output.push(`Mnemonic ${mnemonic.join(" ")} with balance ${balance}, ${nfound} so far, ${i} of 2047`);
-                output.push(<div> <p>Mnemonic {mnemonic.join(" ")} with balance {balance}, {i} mnemonic of 2047 </p> <hr/> </div>)
-                console.log(output);
-                this.setState({textOutput:output})
-
-            }
-        }
-        console.log(web3);
-        // console.log(web3.eth.getAccounts());
-    }
 
 
 
@@ -181,10 +82,6 @@ export default class Text extends React.Component {
     ////
     startAnalysis = async () => {
         try{
-
-
-
-            await this.setState({loading:true});
             this.setState({showInfo:true, mnemonicDuplicates:false,});
             var mnemonic = [];
             let duplicateGrade = 40;
@@ -197,7 +94,6 @@ export default class Text extends React.Component {
                 this.setState({mnemonicLegit:false})
             } else {
                 this.setState({mnemonicLegit:true});
-                // this.lastWord();
 
             }
             let duplicates = this.checkDuplicates(mnemonic);
@@ -305,36 +201,7 @@ export default class Text extends React.Component {
     render(){
 
 
-        const handleChange = event => {
-            this.setState({value:event.target.value});
-            let myArray = [];
-            if(event.target.value == "Metamask"){
-                myArray.push(
-                    <div>
-                        Make sure you have metamask installed!
-                    </div>
-                );
-                this.setState({myarray:myArray});
-            } else {
-                myArray.push(
-                    <div>
-                    <Grid container>
-
-            <Grid item xs={11} sm={11}>
-            <TextField fullWidth  id="outlined-basic" label="Infura API" variant="outlined" />
-            </Grid>
-            <Grid item xs={1} sm={1}>
-            <Tooltip title="Your infura.io key. It looks like this: https://mainnet.infura.io/v3/apiKey">
-          <HelpIcon />
-
-      </Tooltip>
-            </Grid>
-            </Grid>
-      </div>
-                );
-                this.setState({myarray:myArray});
-            }
-          };
+       
 
         const handleMetaSafe = event => {
             this.setState({metaFunction:event.target.value});
@@ -349,24 +216,11 @@ export default class Text extends React.Component {
           <div>
                 <h2>Mnemonic Analyser</h2>
         <Grid container spacing={3}>
-        <Grid item xs={12} sm={3}>
-            <FormControl fullWidth component="fieldset">
-      <FormLabel component="legend">Ethereum Provider</FormLabel>
-      <RadioGroup aria-label="gender" name="gender1" value={this.state.value} onChange={handleChange}>
-        <FormControlLabel value="Metamask" control={<Radio />} label="Metamask" />
-        <FormControlLabel value="Infura" control={<Radio />} label="Infura" />
-        <Tooltip title="You need to buy the advanced plan">
-        <FormControlLabel value="disabled" disabled control={<Radio />} label="Custom" />
-        </Tooltip>
-      </RadioGroup>
-    </FormControl>        
-    {this.state.myarray}
-    <br />
-
-        </Grid>
+        {/* <Grid item xs={12} sm={3}>
+        <p>Analyse how secure your mnemonic is. </p>
+        </Grid> */}
         
         <Grid item xs={12} sm={6}>
-        <h4>Mnemonic</h4>
         <TextField required id="standard-basic" label="Word 1" value={this.state.word1} onChange={(event) => this.setState({word1:event.target.value})} />
         <TextField required id="standard-basic" label="Word 2" value={this.state.word2} onChange={(event) => this.setState({word2:event.target.value})} />
         <TextField required id="standard-basic" label="Word 3" value={this.state.word3} onChange={(event) => this.setState({word3:event.target.value})}/>
@@ -382,39 +236,8 @@ export default class Text extends React.Component {
         
         </Grid>
         
-        <Grid item xs={12} sm={3}>
-        <FormControl fullWidth required>
-        <InputLabel htmlFor="function-required">MetaSafe Smart Functions+</InputLabel>
-        <Select
-          native
-          value={this.state.metaFunction}
-          onChange={handleMetaSafe}
-          name="function"
-          inputProps={{
-            id: 'function-required',
-          }}
-        >
-          <option value="lastWord">Last Word</option>
-          <Tooltip title="You need to buy the advanced plan">
-          <option disabled value="firstWord">First Word (advanced)</option>
-          </Tooltip>
-          <Tooltip title="You need to buy the advanced plan">
-          <option disabled value="allRow">All In A Row (advanced)</option>
-          </Tooltip>
-          <Tooltip title="You need to buy the advanced plan">
-          <option disabled value="lastTwo">Last Two At The Same Time (advanced) </option>
-          </Tooltip>
-          <Tooltip title="You need to buy the advanced plan">
-          <option disabled value="firstTwo">First Two At The Same Time (advanced)</option>
-          </Tooltip>
-          <Tooltip title="You need to buy the advanced plan">
-
-          <option disabled value="Custom">Custom (advanced) </option>
-          </Tooltip>
-
-        </Select>
-        <FormHelperText>Required</FormHelperText>
-      </FormControl><FormControl fullWidth required>
+        <Grid item xs={12} sm={6}>
+    <FormControl fullWidth required>
         <InputLabel htmlFor="age-native-required"> <a href="#">Terms & Conditions</a></InputLabel>
         <Select
           native
@@ -426,11 +249,11 @@ export default class Text extends React.Component {
           }}
         >
           <option value={"I Agree"}>I Agree</option>
-          <option value={"I disagree"}>I Disagree</option>
+          <option value={"I Disagree"}>I Disagree</option>
         </Select>
         <FormHelperText>Required</FormHelperText>
       </FormControl>
-      <Button variant="contained" color="secondary" style={{width:'100%'}} onClick={() => this.setState({loading:false,showInfo:false,word1:'',word2:'',word3:'',word4:'',word5:'',word6:'',word7:'',word8:'',word9:'',word10:'',word11:'',word12:'',})}>
+      <Button variant="contained" color="secondary" style={{width:'100%'}} onClick={() => this.setState({showInfo:false,word1:'',word2:'',word3:'',word4:'',word5:'',word6:'',word7:'',word8:'',word9:'',word10:'',word11:'',word12:'',})}>
             Reset
             </Button>
             {/* {this.state.termsAgree == "I Agree" ? <h2>hahaha</h2> : <br />} */}
@@ -482,22 +305,16 @@ export default class Text extends React.Component {
         <br />
         </Grid> 
         <Grid item xs={12} sm={3}>
-        {this.state.mnemonicLegit === true ? (<div><h4>Your mnemonic looks safe</h4>
+        {this.state.mnemonicLegit === true && this.state.wordsFrom10 <4 && this.state.mnemonicDuplicates === false ? (<div><h4>Your mnemonic looks safe</h4>
         <Fab color="secondary" aria-label="add">
         {/* {this.state.counterMnemonic}% */}
         <CheckIcon />
         </Fab></div>) : <span />}
         
         </Grid>
-        </Grid> : <h2>haha</h2>}
+        </Grid> : <br />}
         <Divider />
 
-        <br />
-        {this.state.mnemonicLegit === true ?         <Paper elevation={3}>
-        <div style={{width:'100%',height:'380px',overflow:'scroll', textAlign:'left',paddingLeft:'5px',paddingTop:'5px'}}>
-      {this.state.textOutput}
-      </div>
-      </Paper> : <br />}
 
 
         </div>  
