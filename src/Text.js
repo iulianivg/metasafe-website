@@ -37,6 +37,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import SecurityIcon from '@material-ui/icons/Security';
+
+
+
 
 const Web3 = require("web3");
 var ethers = require("ethers");
@@ -69,6 +73,8 @@ export default class Text extends React.Component {
       mnemonicDuplicates:false,
       mnemonicDuplicatesDialog:false,
       consecutiveLetters:false,
+      consecutiveLettersDialog:false,
+      consecutiveLettersScore:0,
       wordsFrom10:0,
       wordsFrom10Dialog:false,
       mydata: {},
@@ -94,6 +100,10 @@ export default class Text extends React.Component {
     }
     handleClosewordsFrom10 = async() => {
       this.setState({wordsFrom10Dialog:false})
+    }
+
+    handleCloseconsecutiveLetters = async() => {
+      this.setState({consecutiveLettersDialog:false})
     }
 
     //// analysis LOGIC
@@ -162,7 +172,7 @@ export default class Text extends React.Component {
             if(theWords2.length >= 4){
                 from10Grade = from10Grade-(theWords2.length*2.5)
             }
-
+            this.setState({consecutiveLettersScore:consecutiveGrade})
             let totalUser = from10Grade+consecutiveGrade+duplicateGrade;
             const data = {
                 labels: ['Mnemonic Strength', "Time"],  
@@ -283,9 +293,11 @@ export default class Text extends React.Component {
             </Button>
             
         </Grid>
-        
+        <Grid xs={12}>
+        <Divider />
+          </Grid>
         </Grid>
-        
+
        {this.state.showInfo == true ?  <Grid container spacing={3}>
           <Grid item xs={12} sm={12}>
             
@@ -317,7 +329,7 @@ export default class Text extends React.Component {
           <InfoOutlinedIcon htmlColor="grey" />
           
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={() => this.setState({consecutiveLettersDialog:true})}>
           <ListItemIcon>
               {this.state.consecutiveLetters == false ?             <CheckCircleIcon htmlColor="green" /> :             <CancelIcon color="error" />}
           </ListItemIcon>
@@ -329,7 +341,8 @@ export default class Text extends React.Component {
               {this.state.wordsFrom10 >= 4 ?  <CancelIcon color="error" /> : <CheckCircleIcon htmlColor="green" />}
           </ListItemIcon>
           <ListItemText primary="Less than 4 words come from first 10% of all mnemonics" /> <InfoOutlinedIcon htmlColor="grey" />
-        </ListItem>          
+        </ListItem> 
+                 
  </List> : <span />}
        
         </List>
@@ -342,11 +355,23 @@ export default class Text extends React.Component {
         <CheckIcon />
         </Fab></div>) : <span />}
         <Alert variant="filled" severity="warning">Warning! Mnemonic is not safe. Hackers can steal your funds</Alert>
-
+        <Button
+        style={{width:'100%',marginTop:'5px', marginBottom:'10px'}}
+        variant="contained"
+        color="default"
+        startIcon={<div><SecurityIcon/><span style={{border:'1px solid black',textTransform:'none'}}> MetaSafe </span></div>}
+      >
+        Generate Free  Mnemonic  
+      </Button>
+          
+          <h5>Your <span style={{border:'1px solid black',textTransform:'none'}}> MetaSafe</span>  mnemonic is: </h5>
+      <p>
+      add wealth wealth wealth wealth wealth wealth wealth wealth wealth wealth wealth
         
-        </Grid>
+      </p>
+
+        </Grid>  
         </Grid> : <br />}
-        <Divider />
         <Dialog
         open={this.state.mnemonicLegitDialog}
         TransitionComponent={Transition}
@@ -418,7 +443,7 @@ export default class Text extends React.Component {
           <DialogContentText id="alert-dialog-slide-description">
             The first 240 words of all mnemonics are the most bruteforced by hackers. You should have less than 4 words
             coming from the first 10% of all mnemonics. 
-            Once the 4 word treashold is reached, the more words you have from the first 240 words, the lower your score. 
+            Once the 4 words threshold is reached, the more words you have from the first 240 words, the lower your score. 
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -428,7 +453,32 @@ export default class Text extends React.Component {
         </DialogActions>
       </Dialog>
 
-      
+            <Dialog
+        open={this.state.consecutiveLettersDialog}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={this.handleCloseconsecutiveLetters}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{"How many consecutive words start with the same letter?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            A mnemonic with many words starting with the same letter is not good practice. To be more secure, your mnemonic
+            words must be distributed among a higher range of letters. 
+            For example, a mnemonic that has three consecutive words starting with letter "A" will score lower because is
+            less secure. 
+
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCloseconsecutiveLetters} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* consecutiveLettersDialog */}
         </div>  
       );
     }
