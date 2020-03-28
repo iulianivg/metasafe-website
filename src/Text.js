@@ -24,12 +24,19 @@ import WarningIcon from '@material-ui/icons/Warning';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Popover from '@material-ui/core/Popover';
 import {Line} from 'react-chartjs-2';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Fab from '@material-ui/core/Fab';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Alert from '@material-ui/lab/Alert';
 import CheckIcon from '@material-ui/icons/Check';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide'
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 const Web3 = require("web3");
 var ethers = require("ethers");
@@ -37,7 +44,9 @@ const words = require("./words");
 const words240 = require("./240words");
 
 
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default class Text extends React.Component {
     state = {
@@ -56,9 +65,12 @@ export default class Text extends React.Component {
       word12:'',
       showInfo:false,
       mnemonicLegit:false,
+      mnemonicLegitDialog:false,
       mnemonicDuplicates:false,
+      mnemonicDuplicatesDialog:false,
       consecutiveLetters:false,
       wordsFrom10:0,
+      wordsFrom10Dialog:false,
       mydata: {},
       counterMnemonic:0,
     }
@@ -72,9 +84,17 @@ export default class Text extends React.Component {
     }), {})
 
 
+    handleCloseMnemonicLegit = async() => {
 
+        this.setState({mnemonicLegitDialog:false})
+    }
 
-
+    handleCloseDuplicates = async() => {
+      this.setState({mnemonicDuplicatesDialog:false})
+    }
+    handleClosewordsFrom10 = async() => {
+      this.setState({wordsFrom10Dialog:false})
+    }
 
     //// analysis LOGIC
     ////
@@ -221,6 +241,7 @@ export default class Text extends React.Component {
         </Grid> */}
         
         <Grid item xs={12} sm={6}>
+
         <TextField required id="standard-basic" label="Word 1" value={this.state.word1} onChange={(event) => this.setState({word1:event.target.value})} />
         <TextField required id="standard-basic" label="Word 2" value={this.state.word2} onChange={(event) => this.setState({word2:event.target.value})} />
         <TextField required id="standard-basic" label="Word 3" value={this.state.word3} onChange={(event) => this.setState({word3:event.target.value})}/>
@@ -233,9 +254,9 @@ export default class Text extends React.Component {
         <TextField required id="standard-basic" label="Word 10" value={this.state.word10} onChange={(event) => this.setState({word10:event.target.value})} />
         <TextField required id="standard-basic" label="Word 11" value={this.state.word11} onChange={(event) => this.setState({word11:event.target.value})} />
         <TextField required id="standard-basic" label="Word 12" value={this.state.word12} onChange={(event) => this.setState({word12:event.target.value})} />
-        
+
         </Grid>
-        
+
         <Grid item xs={12} sm={6}>
     <FormControl fullWidth required>
         <InputLabel htmlFor="age-native-required"> <a href="#">Terms & Conditions</a></InputLabel>
@@ -260,63 +281,154 @@ export default class Text extends React.Component {
             <Button variant="contained" color="primary" style={{width:'100%', marginTop:'5px'}} onClick={this.startAnalysis}>
             Go
             </Button>
+            
         </Grid>
         
         </Grid>
         
        {this.state.showInfo == true ?  <Grid container spacing={3}>
           <Grid item xs={12} sm={12}>
+            
           <h2 style={{textAlign:"center"}}>Results</h2>
+          
           </Grid>
-
         <Grid item xs={12} sm={12} md={3} lg={3}>
         {this.state.mnemonicLegit == true ?         <Line data={this.state.mydata} height={200} /> : <span />}
             </Grid>
             
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
           {/* CheckCircleIcon */}
           <List component="nav">
-        <ListItem button>
+        <ListItem button onClick={() => this.setState({mnemonicLegitDialog:true})}>
           <ListItemIcon>
               {this.state.mnemonicLegit == false ?   <CancelIcon color="error"/> : <CheckCircleIcon htmlColor="green" />}
           </ListItemIcon>
-          <ListItemText primary="Mnemonic is legitimate" />
+          <ListItemText primary="Mnemonic is legitimate"   />
+          <InfoOutlinedIcon htmlColor="grey" />
+         
+
         </ListItem>
-        {this.state.mnemonicLegit == true ? <List>  <ListItem button>
+        {this.state.mnemonicLegit == true ? <List>  
+          <ListItem button onClick={() => this.setState({mnemonicDuplicatesDialog:true})}>
           <ListItemIcon>
               {this.state.mnemonicDuplicates == false ?             <CheckCircleIcon htmlColor="green" /> :                       <CancelIcon color="error"/> }
           </ListItemIcon>
           <ListItemText primary="No word repetition" />
+          <InfoOutlinedIcon htmlColor="grey" />
+          
         </ListItem>
         <ListItem button>
           <ListItemIcon>
               {this.state.consecutiveLetters == false ?             <CheckCircleIcon htmlColor="green" /> :             <CancelIcon color="error" />}
           </ListItemIcon>
           <ListItemText primary="No three or more consecutive words starting with the same letter" />
+          <InfoOutlinedIcon htmlColor="grey" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={() => this.setState({wordsFrom10Dialog:true})}>
           <ListItemIcon>
               {this.state.wordsFrom10 >= 4 ?  <CancelIcon color="error" /> : <CheckCircleIcon htmlColor="green" />}
           </ListItemIcon>
-          <ListItemText primary="Less than 4 words come from first 10% of all mnemonics" />
-        </ListItem> </List> : <span />}
+          <ListItemText primary="Less than 4 words come from first 10% of all mnemonics" /> <InfoOutlinedIcon htmlColor="grey" />
+        </ListItem>          
+ </List> : <span />}
        
         </List>
         <br />
         </Grid> 
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={5}>
         {this.state.mnemonicLegit === true && this.state.wordsFrom10 <4 && this.state.mnemonicDuplicates === false ? (<div><h4>Your mnemonic looks safe</h4>
         <Fab color="secondary" aria-label="add">
         {/* {this.state.counterMnemonic}% */}
         <CheckIcon />
         </Fab></div>) : <span />}
+        <Alert variant="filled" severity="warning">Warning! Mnemonic is not safe. Hackers can steal your funds</Alert>
+
         
         </Grid>
         </Grid> : <br />}
         <Divider />
+        <Dialog
+        open={this.state.mnemonicLegitDialog}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={this.handleCloseMnemonicLegit}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{"Mnemonic is legitimate?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            A mnemonic phrase is a set of 12 or 24 words from which wallets can derive. If 
+            your mnemonic is not legitimate please double
+            check the spelling of each word. 
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCloseMnemonicLegit} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 
 
+      <Dialog
+        open={this.state.mnemonicDuplicatesDialog}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={this.handleCloseDuplicates}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{"Any word repetition?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            The more words repeat in your mnemonic, the lower the score. For instance the mnemonic
+            <Paper elevation={3} style={{backgroundColor:'aliceblue'}}>
+            <blockquote style={{fontWeight:'bold'}}>
+              add, <span style={{textDecoration:'underline'}}>wealth, wealth, wealth, wealth, wealth, wealth, wealth, wealth, wealth, wealth, wealth</span>
+            </blockquote>
+            </Paper>
+            is more insecure as it has a word repeated over 10 times compared to 
+            <Paper elevation={3} style={{backgroundColor:'aliceblue'}}>
+            <blockquote style={{fontWeight:'bold'}}>
+            elder,<span style={{textDecoration:'underline'}}>shell</span>,cause,detect,orbit,way,fragile,silly,
+            trend,zero,absorb,<span style={{textDecoration:'underline'}}>shell</span>
+            </blockquote>
+            </Paper>
+            which only has a repetition. No word repetition is great practice.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCloseDuplicates} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 
+      <Dialog
+        open={this.state.wordsFrom10Dialog}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={this.handleClosewordsFrom10}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{"Less than 4 words come from first 10% of all mnemonics?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            The first 240 words of all mnemonics are the most bruteforced by hackers. You should have less than 4 words
+            coming from the first 10% of all mnemonics. 
+            Once the 4 word treashold is reached, the more words you have from the first 240 words, the lower your score. 
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleClosewordsFrom10} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      
         </div>  
       );
     }
