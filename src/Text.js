@@ -38,6 +38,7 @@ import Slide from '@material-ui/core/Slide'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import SecurityIcon from '@material-ui/icons/Security';
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -106,10 +107,64 @@ export default class Text extends React.Component {
       this.setState({consecutiveLettersDialog:false})
     }
 
+
+    /// function to analyze array of mnemonics and get their grades
+    analysis = async(wordss) => {
+      console.log(wordss);
+      let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
+      let duplicates = this.checkDuplicates(wordss);
+      let duplicateGrade = 40;
+      let consecutiveGrade = 30;       
+      let from10Grade = 30;
+      let theWords = [];
+      let theWords2 = [];
+
+      for(let [key, value] of Object.entries(duplicates)){
+        if(value > 1) {
+          duplicateGrade = duplicateGrade-(value* 3);
+        }
+      }
+
+      for(let i=0; i<wordss.length-1;i++) {
+        if((wordss[i].charCodeAt(0) - wordss[i+1].charCodeAt(0)) == 0){
+          theWords.push(wordss[i]);
+        }
+      }
+      if(theWords.length >= 2){
+        consecutiveGrade = consecutiveGrade - (theWords.length *2.5);
+    }
+
+    for(let i=0; i<words240.length;i++){
+      for(let j=0;j<wordss.length;j++){
+          if(words240[i] == wordss[j]){
+              // console.log(words[i]);
+              /// logic for if 4 or more words, it's risky
+              theWords2.push(words[i]);
+          }
+      }
+  }
+  if(theWords2.length >= 4){
+      from10Grade = from10Grade-(theWords2.length*2.5)
+  }
+
+  return [duplicateGrade,consecutiveGrade,from10Grade];
+
+
+  }
+
+
+  generateMnemonic = async() => {
+    try{
+      var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16))
+      console.log(mnemonic);
+    }catch(err){
+      console.log(err.message);
+    }
+  }
+
     //// analysis LOGIC
-    ////
-    ////
-    ////
+    //// does same things as "analysis" with minor changess
+    //// such as stating states
     startAnalysis = async () => {
         try{
             this.setState({showInfo:true, mnemonicDuplicates:false,});
@@ -363,12 +418,15 @@ export default class Text extends React.Component {
       >
         Generate Free  Mnemonic  
       </Button>
-          
-          <h5>Your <span style={{border:'1px solid black',textTransform:'none'}}> MetaSafe</span>  mnemonic is: </h5>
+      <Typography variant="subtitle1" gutterBottom>
+          Are you an exchange and need many safe mnemonics for your users? 
+           <a href="#">Click here</a>
+          </Typography>
+          {/* <h5>Your <span style={{border:'1px solid black',textTransform:'none'}}> MetaSafe</span>  mnemonic is: </h5>
       <p>
       add wealth wealth wealth wealth wealth wealth wealth wealth wealth wealth wealth
         
-      </p>
+      </p> */}
 
         </Grid>  
         </Grid> : <br />}
