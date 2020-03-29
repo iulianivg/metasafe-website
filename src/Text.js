@@ -80,6 +80,8 @@ export default class Text extends React.Component {
       wordsFrom10Dialog:false,
       mydata: {},
       counterMnemonic:0,
+      goodMnemonic:'',
+      score:0,
     }
     componentDidMount() {
         console.log("Hi");
@@ -110,7 +112,6 @@ export default class Text extends React.Component {
 
     /// function to analyze array of mnemonics and get their grades
     analysis = async(wordss) => {
-      console.log(wordss);
       let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
       let duplicates = this.checkDuplicates(wordss);
       let duplicateGrade = 40;
@@ -155,8 +156,32 @@ export default class Text extends React.Component {
 
   generateMnemonic = async() => {
     try{
-      var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16))
-      console.log(mnemonic);
+      let y = true;
+      while(y === true){
+        var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
+        var mnemonic = mnemonic.split(" ");
+        let x = await this.analysis(mnemonic);
+        if(x[0]+x[1]+x[2] === 100){
+          y = false;
+          this.setState({goodMnemonic:mnemonic.join(" ")});
+        }
+      }
+
+      // let goodMnemonics = 0;
+      // let badMnemonics = 0;
+      // for(let i=0; i<1000000;i++){
+      //   var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
+      //   var mnemonic = mnemonic.split(" ");
+      //   let x = await this.analysis(mnemonic); 
+
+      //   if(x[0]+x[1]+x[2] === 100){
+      //     goodMnemonics++;
+      //   } else {
+      //     badMnemonics++;
+      //   }
+
+      // }
+
     }catch(err){
       console.log(err.message);
     }
@@ -263,11 +288,11 @@ export default class Text extends React.Component {
                     pointHoverBorderWidth: 2,
                     pointRadius: 3,
                     pointHitRadius: 10,
-                    data: [0,totalUser-5]
+                    data: [0,totalUser]
                   }
                 ]
               };
-              this.setState({wordsFrom10:theWords2.length, mydata:data})
+              this.setState({wordsFrom10:theWords2.length, mydata:data,score:totalUser})
 
             // if(theWords2.length === 4){
             //     this.setState({wordsFrom10:4});
@@ -305,24 +330,24 @@ export default class Text extends React.Component {
         <p>Analyse how secure your mnemonic is. </p>
         </Grid> */}
         
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} lg={6}>
 
-        <TextField required id="standard-basic" label="Word 1" value={this.state.word1} onChange={(event) => this.setState({word1:event.target.value})} />
-        <TextField required id="standard-basic" label="Word 2" value={this.state.word2} onChange={(event) => this.setState({word2:event.target.value})} />
-        <TextField required id="standard-basic" label="Word 3" value={this.state.word3} onChange={(event) => this.setState({word3:event.target.value})}/>
-        <TextField required id="standard-basic" label="Word 4" value={this.state.word4} onChange={(event) => this.setState({word4:event.target.value})}/>
-        <TextField required id="standard-basic" label="Word 5" value={this.state.word5} onChange={(event) => this.setState({word5:event.target.value})} />
-        <TextField required id="standard-basic" label="Word 6" value={this.state.word6} onChange={(event) => this.setState({word6:event.target.value})}/>
-        <TextField required id="standard-basic" label="Word 7" value={this.state.word7} onChange={(event) => this.setState({word7:event.target.value})}/>
-        <TextField required id="standard-basic" label="Word 8" value={this.state.word8} onChange={(event) => this.setState({word8:event.target.value})}/>
-        <TextField required id="standard-basic" label="Word 9" value={this.state.word9} onChange={(event) => this.setState({word9:event.target.value})}/>
-        <TextField required id="standard-basic" label="Word 10" value={this.state.word10} onChange={(event) => this.setState({word10:event.target.value})} />
-        <TextField required id="standard-basic" label="Word 11" value={this.state.word11} onChange={(event) => this.setState({word11:event.target.value})} />
-        <TextField required id="standard-basic" label="Word 12" value={this.state.word12} onChange={(event) => this.setState({word12:event.target.value})} />
+        <TextField required id="standard-basic" label="Word 1" value={this.state.word1} onChange={(event) => this.setState({word1:event.target.value.trim()})} />
+        <TextField required id="standard-basic" label="Word 2" value={this.state.word2} onChange={(event) => this.setState({word2:event.target.value.trim()})} />
+        <TextField required id="standard-basic" label="Word 3" value={this.state.word3} onChange={(event) => this.setState({word3:event.target.value.trim()})}/>
+        <TextField required id="standard-basic" label="Word 4" value={this.state.word4} onChange={(event) => this.setState({word4:event.target.value.trim()})}/>
+        <TextField required id="standard-basic" label="Word 5" value={this.state.word5} onChange={(event) => this.setState({word5:event.target.value.trim()})} />
+        <TextField required id="standard-basic" label="Word 6" value={this.state.word6} onChange={(event) => this.setState({word6:event.target.value.trim()})}/>
+        <TextField required id="standard-basic" label="Word 7" value={this.state.word7} onChange={(event) => this.setState({word7:event.target.value.trim()})}/>
+        <TextField required id="standard-basic" label="Word 8" value={this.state.word8} onChange={(event) => this.setState({word8:event.target.value.trim()})}/>
+        <TextField required id="standard-basic" label="Word 9" value={this.state.word9} onChange={(event) => this.setState({word9:event.target.value.trim()})}/>
+        <TextField required id="standard-basic" label="Word 10" value={this.state.word10} onChange={(event) => this.setState({word10:event.target.value.trim()})} />
+        <TextField required id="standard-basic" label="Word 11" value={this.state.word11} onChange={(event) => this.setState({word11:event.target.value.trim()})} />
+        <TextField required id="standard-basic" label="Word 12" value={this.state.word12} onChange={(event) => this.setState({word12:event.target.value.trim()})} />
 
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} lg={6}>
     <FormControl fullWidth required>
         <InputLabel htmlFor="age-native-required"> <a href="#">Terms & Conditions</a></InputLabel>
         <Select
@@ -353,17 +378,17 @@ export default class Text extends React.Component {
           </Grid>
         </Grid>
 
-       {this.state.showInfo == true ?  <Grid container spacing={3}>
+       {this.state.showInfo === true && this.state.termsAgree === "I Agree" ?  <Grid container spacing={3}>
           <Grid item xs={12} sm={12}>
             
           <h2 style={{textAlign:"center"}}>Results</h2>
           
           </Grid>
-        <Grid item xs={12} sm={12} md={3} lg={3}>
+        <Grid item xs={12} sm={12} md={12} lg={3}>
         {this.state.mnemonicLegit == true ?         <Line data={this.state.mydata} height={200} /> : <span />}
             </Grid>
             
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={6} lg={4}>
           {/* CheckCircleIcon */}
           <List component="nav">
         <ListItem button onClick={() => this.setState({mnemonicLegitDialog:true})}>
@@ -403,25 +428,26 @@ export default class Text extends React.Component {
         </List>
         <br />
         </Grid> 
-        <Grid item xs={12} sm={5}>
-        {this.state.mnemonicLegit === true && this.state.wordsFrom10 <4 && this.state.mnemonicDuplicates === false ? (<div><h4>Your mnemonic looks safe</h4>
-        <Fab color="secondary" aria-label="add">
-        {/* {this.state.counterMnemonic}% */}
-        <CheckIcon />
-        </Fab></div>) : <span />}
-        <Alert variant="filled" severity="warning">Warning! Mnemonic is not safe. Hackers can steal your funds</Alert>
+        <Grid item xs={12} sm={6} lg={5}>
+        {this.state.mnemonicLegit === true && this.state.wordsFrom10 <4 && this.state.mnemonicDuplicates === false ? (<span />) : <span />}
+        {this.state.mnemonicLegit === true && this.state.score === 100 ?     <Alert variant="filled" severity="success">You mnemonic is safe</Alert> : this.state.mnemonicLegit === true && this.state.score < 100 ?         <Alert variant="filled" severity="warning">Warning! Mnemonic is not safe. Hackers can steal your funds</Alert>
+: <span /> }
+    
+    
         <Button
         style={{width:'100%',marginTop:'5px', marginBottom:'10px'}}
         variant="contained"
         color="default"
-        startIcon={<div><SecurityIcon/><span style={{border:'1px solid black',textTransform:'none'}}> MetaSafe </span></div>}
+        onClick={this.generateMnemonic}
+        startIcon={<div><SecurityIcon/><span style={{border:'1px solid black',textTransform:'none'}}>MetaSafe</span></div>}
       >
         Generate Free  Mnemonic  
       </Button>
-      <Typography variant="subtitle1" gutterBottom>
+      {this.state.goodMnemonic !== '' ? this.state.goodMnemonic :       <Typography variant="subtitle1" gutterBottom>
           Are you an exchange and need many safe mnemonics for your users? 
            <a href="#">Click here</a>
-          </Typography>
+          </Typography>}
+
           {/* <h5>Your <span style={{border:'1px solid black',textTransform:'none'}}> MetaSafe</span>  mnemonic is: </h5>
       <p>
       add wealth wealth wealth wealth wealth wealth wealth wealth wealth wealth wealth
@@ -496,11 +522,11 @@ export default class Text extends React.Component {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">{"Less than 4 words come from first 10% of all mnemonics?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">{"Less than 4 words come from first 10% of all mnemonic words?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            The first 240 words of all mnemonics are the most bruteforced by hackers. You should have less than 4 words
-            coming from the first 10% of all mnemonics. 
+            The first 240 words of all mnemonic words are the most bruteforced by hackers. You should have less than 4 words
+            coming from the first 10% of all those words. 
             Once the 4 words threshold is reached, the more words you have from the first 240 words, the lower your score. 
           </DialogContentText>
         </DialogContent>

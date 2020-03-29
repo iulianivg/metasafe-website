@@ -139,7 +139,7 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap  style={{border:'1px solid white'}}>
             MetaSafe
           </Typography>
         </Toolbar>
@@ -201,7 +201,7 @@ function ResponsiveDrawer(props) {
                       >
                         <MenuIcon />
                       </IconButton>
-                      <Typography variant="h6" noWrap>
+                      <Typography variant="h6" noWrap style={{border:'1px solid white'}}>
                         MetaSafe
                       </Typography>
                     </Toolbar>
