@@ -324,7 +324,7 @@ export default class Text extends React.Component {
           
       return (
           <div>
-                <h2>Mnemonic Analyser</h2>
+                <h2>ETH  Mnemonic Analyser</h2>
         <Grid container spacing={3}>
         {/* <Grid item xs={12} sm={3}>
         <p>Analyse how secure your mnemonic is. </p>
