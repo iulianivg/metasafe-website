@@ -11,14 +11,16 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import InfoIcon from '@material-ui/icons/Info';
 import MenuIcon from '@material-ui/icons/Menu';
-import PersonIcon from '@material-ui/icons/Person';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import ListAltTwoToneIcon from '@material-ui/icons/ListAltTwoTone';
+import FindInPageIcon from '@material-ui/icons/FindInPage';
 import Text from './Text';
+import MnemonicMaker from './MnemonicMaker';
+import WHOpage from './WHO.js';
 
 const drawerWidth = 240;
 
@@ -79,29 +81,29 @@ function ResponsiveDrawer(props) {
       <List>
           <ListItem button onClick={() => changeTab(1)}>
               <ListItemIcon>
-                  <HomeIcon />
+                  <HomeIcon htmlColor="#115293" />
               </ListItemIcon>
               <ListItemText primary="Home" />
           </ListItem>
 
           <ListItem button onClick={() => changeTab(2)}>
               <ListItemIcon>
-                  <PersonIcon />
+                  <ListAltTwoToneIcon htmlColor="#115293" />
               </ListItemIcon>
-              <ListItemText primary="Register / Sign In" />
+              <ListItemText primary="Mnemonic Analyzer" />
           </ListItem>
           
 
           <ListItem button onClick={() => changeTab(3)}>
               <ListItemIcon>
-                  <MailIcon />
+                  <FindInPageIcon htmlColor="#115293" />
               </ListItemIcon>
-              <ListItemText primary="Send Mail" />
+              <ListItemText primary="MetaSafe.WHO" />
           </ListItem>
 
           <ListItem button onClick={() => changeTab(4)}>
               <ListItemIcon>
-                  <InfoIcon />
+                  <InfoIcon htmlColor="#115293" />
               </ListItemIcon>
               <ListItemText primary="About Us" />
           </ListItem>
@@ -121,10 +123,6 @@ function ResponsiveDrawer(props) {
     </div>
   );
 
-
-
-  if(tabOpen == 1){
-      /////// Working on Home
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -176,78 +174,17 @@ function ResponsiveDrawer(props) {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+         <div className={classes.toolbar} />
+            {tabOpen === 1 ?         <MnemonicMaker /> : tabOpen=== 2 ? <Text /> :  tabOpen === 3 ? <WHOpage /> : <p>noo</p>}
 
-        <Text />
       </main>
     </div>
   );
 
 
 
-        } else {
-            //// working on register sign in
-            return (
-                <div className={classes.root}>
-                  <CssBaseline />
-                  <AppBar position="fixed" className={classes.appBar}>
-                    <Toolbar>
-                      <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        className={classes.menuButton}
-                      >
-                        <MenuIcon />
-                      </IconButton>
-                      <Typography variant="h6" noWrap style={{border:'1px solid white'}}>
-                        MetaSafe
-                      </Typography>
-                    </Toolbar>
-                  </AppBar>
-                  <nav className={classes.drawer} aria-label="mailbox folders">
-                    {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                    <Hidden smUp implementation="css">
-                      <Drawer
-                        container={container}
-                        variant="temporary"
-                        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        classes={{
-                          paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                          keepMounted: true, // Better open performance on mobile.
-                        }}
-                      >
-                        {drawer}
-                      </Drawer>
-                    </Hidden>
-                    <Hidden xsDown implementation="css">
-                      <Drawer
-                        classes={{
-                          paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                      >
-                        {drawer}
-                      </Drawer>
-                    </Hidden>
-                  </nav>
-                  <main className={classes.content}>
-                    <div className={classes.toolbar} />
-            
-                    <Typography paragraph>
-                        Not yet available
-                    </Typography>
-                  </main>
-                </div>
-              );
         }
-}
+
 
 ResponsiveDrawer.propTypes = {
   /**

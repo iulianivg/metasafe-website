@@ -368,7 +368,7 @@ export default class Text extends React.Component {
             Reset
             </Button>
             {/* {this.state.termsAgree == "I Agree" ? <h2>hahaha</h2> : <br />} */}
-            <Button variant="contained" color="primary" style={{width:'100%', marginTop:'5px'}} onClick={this.startAnalysis}>
+            <Button variant="contained" color="secondary" style={{width:'100%', marginTop:'5px'}} onClick={this.startAnalysis}>
             Go
             </Button>
             
