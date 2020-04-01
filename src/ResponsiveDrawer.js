@@ -21,6 +21,14 @@ import FindInPageIcon from '@material-ui/icons/FindInPage';
 import Text from './Text';
 import MnemonicMaker from './MnemonicMaker';
 import WHOpage from './WHO.js';
+import Terms from './Terms.js';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch
+} from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -79,34 +87,36 @@ function ResponsiveDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-          <ListItem button onClick={() => changeTab(1)}>
+        <Link to="/" style={{textDecoration:'none',color:'inherit'}}>
+          <ListItem  button onClick={() => changeTab(1)}>
               <ListItemIcon>
                   <HomeIcon htmlColor="#115293" />
               </ListItemIcon>
               <ListItemText primary="Home" />
           </ListItem>
-
-          <ListItem button onClick={() => changeTab(2)}>
+          </Link>
+          <Link to="/analysis" style={{textDecoration:'none',color:'inherit'}}>
+          <ListItem  button onClick={() => changeTab(2)}>
               <ListItemIcon>
                   <ListAltTwoToneIcon htmlColor="#115293" />
               </ListItemIcon>
               <ListItemText primary="Mnemonic Analyzer" />
           </ListItem>
-          
-
-          <ListItem button onClick={() => changeTab(3)}>
+          </Link>
+          <Link to="/who" style={{textDecoration:'none',color:'inherit'}} >
+          <ListItem to="/who" button onClick={() => changeTab(3)}>
               <ListItemIcon>
                   <FindInPageIcon htmlColor="#115293" />
               </ListItemIcon>
               <ListItemText primary="MetaSafe.WHO" />
           </ListItem>
-
-          <ListItem button onClick={() => changeTab(4)}>
+          </Link>
+          {/* <ListItem button onClick={() => changeTab(4)}>
               <ListItemIcon>
                   <InfoIcon htmlColor="#115293" />
               </ListItemIcon>
               <ListItemText primary="About Us" />
-          </ListItem>
+          </ListItem> */}
 {/* 
         {['Home', 'Register/Sign in', 'Send email', 'About Us'].map((text, index) => (
           <ListItem button key={text}>
@@ -124,6 +134,7 @@ function ResponsiveDrawer(props) {
   );
 
   return (
+    <Router>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
@@ -138,7 +149,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap  style={{border:'1px solid white'}}>
-            MetaSafe
+           <a href="/" style={{textDecoration:'none',color:'inherit'}}> MetaSafe </a>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -175,10 +186,25 @@ function ResponsiveDrawer(props) {
       </nav>
       <main className={classes.content}>
          <div className={classes.toolbar} />
-            {tabOpen === 1 ?         <MnemonicMaker /> : tabOpen=== 2 ? <Text /> :  tabOpen === 3 ? <WHOpage /> : <p>noo</p>}
+         <Switch>
+          <Route exact path="/">
+            <MnemonicMaker />
+          </Route>
+          <Route exact path="/analysis">
+            <Text />
+          </Route>
+          <Route exact path="/who">
+          <WHOpage />
+          </Route>
+          <Route exact path="/terms">
+              <Terms />
+          </Route>
+        </Switch>
+            {/* {tabOpen === 1 ?         <MnemonicMaker /> : tabOpen=== 2 ? <Text /> :  tabOpen === 3 ? <WHOpage /> : <span />} */}
 
       </main>
     </div>
+    </Router>
   );
 
 

@@ -349,7 +349,7 @@ export default class Text extends React.Component {
 
         <Grid item xs={12} sm={12} lg={6}>
     <FormControl fullWidth required>
-        <InputLabel htmlFor="age-native-required"> <a href="#">Terms & Conditions</a></InputLabel>
+        <InputLabel htmlFor="age-native-required"> <a href="/terms">Terms & Conditions</a></InputLabel>
         <Select
           native
           value={this.state.termsAgree}
@@ -445,7 +445,7 @@ export default class Text extends React.Component {
       </Button>
       {this.state.goodMnemonic !== '' ? this.state.goodMnemonic :       <Typography variant="subtitle1" gutterBottom>
           Are you an exchange and need many safe mnemonics for your users? 
-           <a href="#">Click here</a>
+           <a href="/">Click here</a>
           </Typography>}
 
           {/* <h5>Your <span style={{border:'1px solid black',textTransform:'none'}}> MetaSafe</span>  mnemonic is: </h5>

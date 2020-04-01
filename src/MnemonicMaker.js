@@ -142,7 +142,7 @@ export default class MnemonicMaker extends React.Component {
         <Card>
                 <CardHeader
                   title="Personal Mnemonic"
-                  subheader="A safe mnemonic for personal use"
+                  subheader="A safe ethereum mnemonic for personal use"
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
                   action={<AccountCircleIcon color="secondary" />}
@@ -199,7 +199,8 @@ export default class MnemonicMaker extends React.Component {
         <Card>
                 <CardHeader
                   title="Enterprise Mnemonic"
-                  subheader="Safe mnemonics for companies"
+                  className="#"
+                  subheader="Safe ethereum mnemonics for companies"
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
                   action={<BusinessIcon color="secondary" />}
@@ -248,7 +249,7 @@ export default class MnemonicMaker extends React.Component {
                 </CardContent>
                 <CardActions>
                   <Button fullWidth variant="outline" color="primary">
-                    CONTACT US
+                  <a href="mailto:ethmetasafe@gmail.com?Subject=Enterprise%20Mnemonic" target="_top">CONTACT US</a>
                   </Button>
                 </CardActions>
               </Card>
@@ -269,7 +270,7 @@ export default class MnemonicMaker extends React.Component {
           <Typography>
             <blockquote>"In cryptography, a brute-force attack consists of an attacker submitting many passwords or passphrases with the hope of eventually guessing correctly."
               </blockquote>
-              <cite><a style={{color:'grey'}} href="#">Wikipedia.org</a></cite>
+              <cite><a style={{color:'grey'}} href="https://en.wikipedia.org/wiki/Brute-force_attack" target="_blank">Wikipedia.org</a></cite>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
