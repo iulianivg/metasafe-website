@@ -1,7 +1,5 @@
 import React from 'react';
-import { Component } from 'react'
 import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
 
 
 export default class Terms extends React.Component {

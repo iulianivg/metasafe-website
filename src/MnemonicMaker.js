@@ -1,6 +1,4 @@
 import React from 'react';
-import { Component } from 'react'
-import CancelIcon from '@material-ui/icons/Cancel';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import SecurityIcon from '@material-ui/icons/Security';
@@ -9,7 +7,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import StarIcon from '@material-ui/icons/Star';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -41,7 +38,8 @@ export default class MnemonicMaker extends React.Component {
 
 
     analysis = async(wordss) => {
-        let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
+        // let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
+          // random check to see if mnemonic is valid
         let duplicates = this.checkDuplicates(wordss);
         let duplicateGrade = 40;
         let consecutiveGrade = 30;       
@@ -56,7 +54,7 @@ export default class MnemonicMaker extends React.Component {
         }
   
         for(let i=0; i<wordss.length-1;i++) {
-          if((wordss[i].charCodeAt(0) - wordss[i+1].charCodeAt(0)) == 0){
+          if((wordss[i].charCodeAt(0) - wordss[i+1].charCodeAt(0)) === 0){
             theWords.push(wordss[i]);
           }
         }
@@ -66,7 +64,7 @@ export default class MnemonicMaker extends React.Component {
   
       for(let i=0; i<words240.length;i++){
         for(let j=0;j<wordss.length;j++){
-            if(words240[i] == wordss[j]){
+            if(words240[i] === wordss[j]){
                 // console.log(words[i]);
                 /// logic for if 4 or more words, it's risky
                 theWords2.push(wordss[i]);
@@ -88,7 +86,7 @@ export default class MnemonicMaker extends React.Component {
           let y = true;
           while(y === true){
             var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
-            var mnemonic = mnemonic.split(" ");
+            mnemonic = mnemonic.split(" ");
             let x = await this.analysis(mnemonic);
             if(x[0]+x[1]+x[2] === 100){
               y = false;
@@ -113,7 +111,7 @@ export default class MnemonicMaker extends React.Component {
           <div style={{width:'100%'}}>
           <Grid container spacing={3}>
                     <Grid item xs={3}></Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                     <Alert variant="filled" severity="info">
         We have analyzed over 100 MILLION user mnemonics and 19.6% are constantly coming out as vulnerable based on our criteria. 
                  </Alert>
@@ -241,7 +239,7 @@ export default class MnemonicMaker extends React.Component {
           <ListItemIcon>
             <CheckIcon htmlColor="#4caf50" />
           </ListItemIcon>
-          <ListItemText primary="MetaSafe Verified badge (blockchain-based)" secondary={<img width="25%" src={require('./icons/Badge.png')} />}>
+          <ListItemText primary="MetaSafe Verified badge (blockchain-based)" secondary={<img width="25%" alt="MetaSafe Verified Badge" src={require('./icons/Badge.png')} />}>
           </ListItemText>
         </ListItem>
         </List>
@@ -270,7 +268,7 @@ export default class MnemonicMaker extends React.Component {
           <Typography>
             <blockquote>"In cryptography, a brute-force attack consists of an attacker submitting many passwords or passphrases with the hope of eventually guessing correctly."
               </blockquote>
-              <cite><a style={{color:'grey'}} href="https://en.wikipedia.org/wiki/Brute-force_attack" target="_blank">Wikipedia.org</a></cite>
+              <cite><a style={{color:'grey'}} href="https://en.wikipedia.org/wiki/Brute-force_attack" rel="noopener noreferrer" target="_blank">Wikipedia.org</a></cite>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>

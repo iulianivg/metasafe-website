@@ -11,8 +11,7 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
   // we are on the server or user is not running metamask
   // set up our own provider that works through infura
   const provider = new Web3.providers.HttpProvider(
-    // pass url of remote node
-    'https://mainnet.infura.io/v3/aee4dd30db8a42aa935d0f714ee521ae'
+    'https://rinkeby.infura.io/v3/aee4dd30db8a42aa935d0f714ee521ae'
   );
   web3 = new Web3(provider);
 }

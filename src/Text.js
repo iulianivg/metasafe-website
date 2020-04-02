@@ -1,15 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
-import { Component } from 'react'
 import Grid from '@material-ui/core/Grid';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import Tooltip from '@material-ui/core/Tooltip';
-import HelpIcon from '@material-ui/icons/Help';
-import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
@@ -20,22 +12,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import WarningIcon from '@material-ui/icons/Warning';
 import CancelIcon from '@material-ui/icons/Cancel';
-import Popover from '@material-ui/core/Popover';
 import {Line} from 'react-chartjs-2';
-import Fab from '@material-ui/core/Fab';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
-import CheckIcon from '@material-ui/icons/Check';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide'
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import SecurityIcon from '@material-ui/icons/Security';
 import Typography from '@material-ui/core/Typography';
@@ -43,7 +29,6 @@ import Typography from '@material-ui/core/Typography';
 
 
 
-const Web3 = require("web3");
 var ethers = require("ethers");
 const words = require("./words");
 const words240 = require("./240words");
@@ -112,7 +97,8 @@ export default class Text extends React.Component {
 
     /// function to analyze array of mnemonics and get their grades
     analysis = async(wordss) => {
-      let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
+      // let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
+      // random check to see if mnemonic is valid
       let duplicates = this.checkDuplicates(wordss);
       let duplicateGrade = 40;
       let consecutiveGrade = 30;       
@@ -127,7 +113,7 @@ export default class Text extends React.Component {
       }
 
       for(let i=0; i<wordss.length-1;i++) {
-        if((wordss[i].charCodeAt(0) - wordss[i+1].charCodeAt(0)) == 0){
+        if((wordss[i].charCodeAt(0) - wordss[i+1].charCodeAt(0)) === 0){
           theWords.push(wordss[i]);
         }
       }
@@ -137,7 +123,7 @@ export default class Text extends React.Component {
 
     for(let i=0; i<words240.length;i++){
       for(let j=0;j<wordss.length;j++){
-          if(words240[i] == wordss[j]){
+          if(words240[i] === wordss[j]){
               // console.log(words[i]);
               /// logic for if 4 or more words, it's risky
               theWords2.push(words[i]);
@@ -159,7 +145,7 @@ export default class Text extends React.Component {
       let y = true;
       while(y === true){
         var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
-        var mnemonic = mnemonic.split(" ");
+        mnemonic = mnemonic.split(" ");
         let x = await this.analysis(mnemonic);
         if(x[0]+x[1]+x[2] === 100){
           y = false;
@@ -197,10 +183,10 @@ export default class Text extends React.Component {
             let duplicateGrade = 40;
             let consecutiveGrade = 30;
             let from10Grade = 30;
-            mnemonic.push(this.state.word1,this.state.word2, this.state.word3,this.state.word4,this.state.word5,this.state.word6,this.state.word7,this.state.word8,this.state.word9,this.state.word10,this.state.word11,this.state.word12);
+            mnemonic.push(this.state.word1.toLowerCase(),this.state.word2.toLowerCase(), this.state.word3.toLowerCase(),this.state.word4.toLowerCase(),this.state.word5.toLowerCase(),this.state.word6.toLowerCase(),this.state.word7.toLowerCase(),this.state.word8.toLowerCase(),this.state.word9.toLowerCase(),this.state.word10.toLowerCase(),this.state.word11.toLowerCase(),this.state.word12.toLowerCase());
             let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(mnemonic.join(" "));
             /// logic if menmonic is invalid (to do);
-            if(mnemonicValid == false){
+            if(mnemonicValid === false){
                 this.setState({mnemonicLegit:false})
             } else {
                 this.setState({mnemonicLegit:true});
@@ -223,7 +209,7 @@ export default class Text extends React.Component {
             /// logic to check if more consecutive words start with same letter
             for(let i=0; i<mnemonic.length-1;i++) {
 
-                if((mnemonic[i].charCodeAt(0) - mnemonic[i+1].charCodeAt(0)) == 0){
+                if((mnemonic[i].charCodeAt(0) - mnemonic[i+1].charCodeAt(0)) === 0){
                 theWords.push(mnemonic[i]);
                 }
                 
@@ -242,7 +228,7 @@ export default class Text extends React.Component {
 
             for(let i=0; i<words240.length;i++){
                 for(let j=0;j<mnemonic.length;j++){
-                    if(words[i] == mnemonic[j]){
+                    if(words[i] === mnemonic[j]){
                         // console.log(words[i]);
                         /// logic for if 4 or more words, it's risky
                         theWords2.push(words[i]);
@@ -313,9 +299,6 @@ export default class Text extends React.Component {
 
        
 
-        const handleMetaSafe = event => {
-            this.setState({metaFunction:event.target.value});
-        }
         const handleTerms = event => {
             this.setState({termsAgree:event.target.value});
         }
@@ -324,14 +307,14 @@ export default class Text extends React.Component {
           
       return (
           <div>
-                <h2>ETH  Mnemonic Analyser</h2>
+                <h2>Ethereum Mnemonic Analyser</h2>
         <Grid container spacing={3}>
         {/* <Grid item xs={12} sm={3}>
         <p>Analyse how secure your mnemonic is. </p>
         </Grid> */}
         
         <Grid item xs={12} sm={12} lg={6}>
-
+        
         <TextField required id="standard-basic" label="Word 1" value={this.state.word1} onChange={(event) => this.setState({word1:event.target.value.trim()})} />
         <TextField required id="standard-basic" label="Word 2" value={this.state.word2} onChange={(event) => this.setState({word2:event.target.value.trim()})} />
         <TextField required id="standard-basic" label="Word 3" value={this.state.word3} onChange={(event) => this.setState({word3:event.target.value.trim()})}/>
@@ -385,7 +368,7 @@ export default class Text extends React.Component {
           
           </Grid>
         <Grid item xs={12} sm={12} md={12} lg={3}>
-        {this.state.mnemonicLegit == true ?         <Line data={this.state.mydata} height={200} /> : <span />}
+        {this.state.mnemonicLegit === true ?         <Line data={this.state.mydata} height={200} /> : <span />}
             </Grid>
             
             <Grid item xs={12} sm={6} lg={4}>
@@ -393,17 +376,17 @@ export default class Text extends React.Component {
           <List component="nav">
         <ListItem button onClick={() => this.setState({mnemonicLegitDialog:true})}>
           <ListItemIcon>
-              {this.state.mnemonicLegit == false ?   <CancelIcon color="error"/> : <CheckCircleIcon htmlColor="green" />}
+              {this.state.mnemonicLegit === false ?   <CancelIcon color="error"/> : <CheckCircleIcon htmlColor="green" />}
           </ListItemIcon>
           <ListItemText primary="Mnemonic is legitimate"   />
           <InfoOutlinedIcon htmlColor="grey" />
          
 
         </ListItem>
-        {this.state.mnemonicLegit == true ? <List>  
+        {this.state.mnemonicLegit === true ? <List>  
           <ListItem button onClick={() => this.setState({mnemonicDuplicatesDialog:true})}>
           <ListItemIcon>
-              {this.state.mnemonicDuplicates == false ?             <CheckCircleIcon htmlColor="green" /> :                       <CancelIcon color="error"/> }
+              {this.state.mnemonicDuplicates === false ?             <CheckCircleIcon htmlColor="green" /> :                       <CancelIcon color="error"/> }
           </ListItemIcon>
           <ListItemText primary="No word repetition" />
           <InfoOutlinedIcon htmlColor="grey" />
@@ -411,7 +394,7 @@ export default class Text extends React.Component {
         </ListItem>
         <ListItem button onClick={() => this.setState({consecutiveLettersDialog:true})}>
           <ListItemIcon>
-              {this.state.consecutiveLetters == false ?             <CheckCircleIcon htmlColor="green" /> :             <CancelIcon color="error" />}
+              {this.state.consecutiveLetters === false ?             <CheckCircleIcon htmlColor="green" /> :             <CancelIcon color="error" />}
           </ListItemIcon>
           <ListItemText primary="No three or more consecutive words starting with the same letter" />
           <InfoOutlinedIcon htmlColor="grey" />

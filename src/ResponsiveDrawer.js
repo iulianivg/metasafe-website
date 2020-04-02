@@ -11,7 +11,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InfoIcon from '@material-ui/icons/Info';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -27,7 +26,7 @@ import {
   Switch,
   Route,
   Link,
-  useRouteMatch
+  // useRouteMatch
 } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -71,16 +70,16 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const [tabOpen,setTabOpen] = React.useState(1);
+  // const [tabOpen,setTabOpen] = React.useState(1);
   
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const changeTab = (tabNumber) => {
-        setTabOpen(tabNumber);
-  }
+  // const changeTab = (tabNumber) => {
+  //       setTabOpen(tabNumber);
+  // }
 
   const drawer = (
     <div>
@@ -88,7 +87,8 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         <Link to="/" style={{textDecoration:'none',color:'inherit'}}>
-          <ListItem  button onClick={() => changeTab(1)}>
+        {/* <ListItem  button onClick={() => changeTab(1)}> */}
+          <ListItem  button >
               <ListItemIcon>
                   <HomeIcon htmlColor="#115293" />
               </ListItemIcon>
@@ -96,7 +96,7 @@ function ResponsiveDrawer(props) {
           </ListItem>
           </Link>
           <Link to="/analysis" style={{textDecoration:'none',color:'inherit'}}>
-          <ListItem  button onClick={() => changeTab(2)}>
+          <ListItem  button >
               <ListItemIcon>
                   <ListAltTwoToneIcon htmlColor="#115293" />
               </ListItemIcon>
@@ -104,7 +104,7 @@ function ResponsiveDrawer(props) {
           </ListItem>
           </Link>
           <Link to="/who" style={{textDecoration:'none',color:'inherit'}} >
-          <ListItem to="/who" button onClick={() => changeTab(3)}>
+          <ListItem to="/who" button >
               <ListItemIcon>
                   <FindInPageIcon htmlColor="#115293" />
               </ListItemIcon>

@@ -1,24 +1,17 @@
 import React from 'react';
-import { Component } from 'react'
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Smart from './Smart Contract/Smart';
-import web3 from './Smart Contract/web3';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import LanguageIcon from '@material-ui/icons/Language';
-import ContactsIcon from '@material-ui/icons/Contacts';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 
@@ -86,9 +79,8 @@ export default class WHOpage extends React.Component {
         <Typography variant="h5" component="h2">
           {this.state.realId !== "0" ?         <CheckCircleIcon fontSize="large" htmlColor="green" /> : <HighlightOffIcon fontSize="large" htmlColor="red" />}
         </Typography>
-        <Typography  color="textSecondary">
-        {this.state.realId !== "0" ?         <span style={{color:'green'}}>Verified</span> :         <span style={{color:'red'}}>Not Verified</span>    }
-
+        <Typography  variant="body2" component="p">
+        {this.state.realId !== "0" ?         <span style={{color:'green'}}>Verified</span> : <span style={{color:'red'}}>Not Verified</span>    }
         </Typography>
       </CardContent>
     </Card>
