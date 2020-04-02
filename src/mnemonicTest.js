@@ -101,4 +101,27 @@ return [duplicateGrade,consecutiveGrade,from10Grade];
     //   }
     //   }
 
-generateMnemonic2();
+    generateMnemonic3 = async () => {
+      try{
+        console.log("starting... this may take some time. Enjoy a coffee dear programmer.");
+        let goodMnemonics = 0;
+        let badMnemonics = 0;
+        for(let i=0; i<10000;i++){
+          var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(32));
+          var mnemonic = mnemonic.split(" ");
+          let x = await analysis(mnemonic); 
+          console.log(i);
+          if(x[0]+x[1]+x[2] === 100){
+            goodMnemonics++;
+          } else {
+            badMnemonics++;
+          }
+        }
+        console.log('good mnemonics: ',goodMnemonics);
+        console.log('bad mnemonics: ', badMnemonics);
+      } catch(err){
+        console.log(err.message);
+      }
+  }
+
+generateMnemonic3();
