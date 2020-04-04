@@ -17,10 +17,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ListAltTwoToneIcon from '@material-ui/icons/ListAltTwoTone';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Text from './Text';
 import MnemonicMaker from './MnemonicMaker';
 import WHOpage from './WHO.js';
 import Terms from './Terms.js';
+import Donate from './Donate.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -104,13 +106,21 @@ function ResponsiveDrawer(props) {
           </ListItem>
           </Link>
           <Link to="/who" style={{textDecoration:'none',color:'inherit'}} >
-          <ListItem to="/who" button >
+          <ListItem  button >
               <ListItemIcon>
                   <FindInPageIcon htmlColor="#115293" />
               </ListItemIcon>
               <ListItemText primary="MetaSafe.WHO" />
           </ListItem>
           </Link>
+          <Link to="/donate" style={{textDecoration:'none',color:'inherit'}}>
+          
+          <ListItem button>
+          <ListItemIcon>
+              <ThumbUpIcon htmlColor="#115293" />
+          </ListItemIcon>
+          <ListItemText primary="Support Us" />
+          </ListItem></Link>
           {/* <ListItem button onClick={() => changeTab(4)}>
               <ListItemIcon>
                   <InfoIcon htmlColor="#115293" />
@@ -198,6 +208,9 @@ function ResponsiveDrawer(props) {
           </Route>
           <Route exact path="/terms">
               <Terms />
+          </Route>
+          <Route exact path="/donate">
+              <Donate />
           </Route>
         </Switch>
             {/* {tabOpen === 1 ?         <MnemonicMaker /> : tabOpen=== 2 ? <Text /> :  tabOpen === 3 ? <WHOpage /> : <span />} */}
