@@ -25,16 +25,32 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import LowPriorityIcon from '@material-ui/icons/LowPriority';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
 
 var ethers = require("ethers");
 const words240 = require("./240words");
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
 export default class MnemonicMaker extends React.Component {
     state = {
         goodMnemonic:'',
+        consecutiveLettersDialog:false,
     }
+
+
+    handleCloseconsecutiveLetters = async() => {
+      this.setState({consecutiveLettersDialog:false})
+    }
+
     checkDuplicates = names =>
     names.reduce((a, b) => ({ ...a,
     [b]: (a[b] || 0) + 1
@@ -84,6 +100,49 @@ export default class MnemonicMaker extends React.Component {
   
     }
 
+    analysis24 = async(wordss) => {
+      // let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
+        // random check to see if mnemonic is valid
+      let duplicates = this.checkDuplicates(wordss);
+      let duplicateGrade = 40;
+      let consecutiveGrade = 30;       
+      let from10Grade = 30;
+      let theWords = [];
+      let theWords2 = [];
+
+      for(let [key, value] of Object.entries(duplicates)){
+        if(value > 1) {
+          duplicateGrade = duplicateGrade-(value* 1.5);
+        }
+      }
+
+      for(let i=0; i<wordss.length-1;i++) {
+        if((wordss[i].charCodeAt(0) - wordss[i+1].charCodeAt(0)) === 0){
+          theWords.push(wordss[i]);
+        }
+      }
+      if(theWords.length >= 2){
+        consecutiveGrade = consecutiveGrade - (theWords.length *1.75);
+    }
+
+    for(let i=0; i<words240.length;i++){
+      for(let j=0;j<wordss.length;j++){
+          if(words240[i] === wordss[j]){
+              // console.log(words[i]);
+              /// logic for if 4 or more words, it's risky
+              theWords2.push(wordss[i]);
+          }
+      }
+  }
+  if(theWords2.length >= 4){
+      from10Grade = from10Grade-(theWords2.length*1.75)
+  }
+
+  return [duplicateGrade,consecutiveGrade,from10Grade];
+
+
+  }
+
 
     generateMnemonic = async() => {
         try{
@@ -92,6 +151,24 @@ export default class MnemonicMaker extends React.Component {
             var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
             mnemonic = mnemonic.split(" ");
             let x = await this.analysis(mnemonic);
+            if(x[0]+x[1]+x[2] === 100){
+              y = false;
+              this.setState({goodMnemonic:mnemonic.join(" ")});
+            }
+          }
+
+    
+        }catch(err){
+          console.log(err.message);
+        }
+      }
+      generateMnemonic24 = async() => {
+        try{
+          let y = true;
+          while(y === true){
+            var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(32));
+            mnemonic = mnemonic.split(" ");
+            let x = await this.analysis24(mnemonic);
             if(x[0]+x[1]+x[2] === 100){
               y = false;
               this.setState({goodMnemonic:mnemonic.join(" ")});
@@ -211,13 +288,14 @@ export default class MnemonicMaker extends React.Component {
         style={{marginTop:'5px', marginBottom:'10px'}}
         variant="contained"
         color="secondary"
-        onClick={this.generateMnemonic}
+        // onClick={this.generateMnemonic}
+        onClick={() => this.setState({consecutiveLettersDialog:true})}
         startIcon={<div><SecurityIcon/><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
       >
         Generate Free  Mnemonic  
       </Button>
                 </CardActions>
-                {this.state.goodMnemonic !== '' ? this.state.goodMnemonic : <span />}
+                {/* {this.state.goodMnemonic !== '' ? this.state.goodMnemonic : <span />} */}
 
               </Card>
         </Grid>
@@ -373,6 +451,57 @@ export default class MnemonicMaker extends React.Component {
         </Grid>
                
           </Grid>
+          <Dialog
+          maxWidth={'sm'}
+          fullWidth={true}
+        open={this.state.consecutiveLettersDialog}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={this.handleCloseconsecutiveLetters}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{<div>FREE <span style={{border:'1px solid black',textTransform:'none'}}>MetaSafe</span> MNEMONIC</div>}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+
+<Grid container spacing={2}>
+<Grid item xs={6}>
+<Button fullWidth
+        style={{marginTop:'5px', marginBottom:'10px'}}
+        variant="contained"
+        color="primary"
+        // onClick={this.generateMnemonic}
+        onClick={this.generateMnemonic}
+        startIcon={<div><SecurityIcon/><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
+      >
+        Generate 12 Words  Mnemonic  
+      </Button>   
+      </Grid>   
+<Grid item xs={6}>    
+      <Button fullWidth
+        style={{marginTop:'5px', marginBottom:'10px'}}
+        variant="contained"
+        color="primary"
+        // onClick={this.generateMnemonic}
+        onClick={this.generateMnemonic24}
+        startIcon={<div><SecurityIcon/><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
+      >
+        Generate 24 Words  Mnemonic  
+      </Button>  
+      </Grid> 
+      </Grid>
+      <Divider />
+      {this.state.goodMnemonic !== '' ? this.state.goodMnemonic : <span />}
+
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCloseconsecutiveLetters} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
             {/* <h4> We've analysed over 100 million Ethereum mnemonics from which 19.6% did not meet our criteria
                 of security. Some mnemonics are exponentially easier to bruteforce. Don't lose your funds to a 
                 stupid mistake.  </h4> */}

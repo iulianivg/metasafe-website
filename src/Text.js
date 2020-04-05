@@ -25,6 +25,9 @@ import Slide from '@material-ui/core/Slide'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import SecurityIcon from '@material-ui/icons/Security';
 import Typography from '@material-ui/core/Typography';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 
@@ -53,6 +56,18 @@ export default class Text extends React.Component {
       word10:'',
       word11:'',
       word12:'',
+      word13:'',
+      word14:'',
+      word15:'',
+      word16:'',
+      word17:'',
+      word18:'',
+      word19:'',
+      word20:'',
+      word21:'',
+      word22:'',
+      word23:'',
+      word24:'',
       showInfo:false,
       mnemonicLegit:false,
       mnemonicLegitDialog:false,
@@ -67,6 +82,8 @@ export default class Text extends React.Component {
       counterMnemonic:0,
       goodMnemonic:'',
       score:0,
+      type:"12",
+      generateMnemonicDialog:false,
     }
     componentDidMount() {
         console.log("Hi");
@@ -92,6 +109,10 @@ export default class Text extends React.Component {
 
     handleCloseconsecutiveLetters = async() => {
       this.setState({consecutiveLettersDialog:false})
+    }
+
+    handleClosegenerateMnemonic = async () => {
+      this.setState({generateMnemonicDialog:false,goodMnemonic:''})
     }
 
 
@@ -139,6 +160,49 @@ export default class Text extends React.Component {
 
   }
 
+  analysis24 = async(wordss) => {
+    // let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
+      // random check to see if mnemonic is valid
+    let duplicates = this.checkDuplicates(wordss);
+    let duplicateGrade = 40;
+    let consecutiveGrade = 30;       
+    let from10Grade = 30;
+    let theWords = [];
+    let theWords2 = [];
+
+    for(let [key, value] of Object.entries(duplicates)){
+      if(value > 1) {
+        duplicateGrade = duplicateGrade-(value* 1.5);
+      }
+    }
+
+    for(let i=0; i<wordss.length-1;i++) {
+      if((wordss[i].charCodeAt(0) - wordss[i+1].charCodeAt(0)) === 0){
+        theWords.push(wordss[i]);
+      }
+    }
+    if(theWords.length >= 2){
+      consecutiveGrade = consecutiveGrade - (theWords.length *1.75);
+  }
+
+  for(let i=0; i<words240.length;i++){
+    for(let j=0;j<wordss.length;j++){
+        if(words240[i] === wordss[j]){
+            // console.log(words[i]);
+            /// logic for if 4 or more words, it's risky
+            theWords2.push(wordss[i]);
+        }
+    }
+}
+if(theWords2.length >= 4){
+    from10Grade = from10Grade-(theWords2.length*1.75)
+}
+
+return [duplicateGrade,consecutiveGrade,from10Grade];
+
+
+}
+
 
   generateMnemonic = async() => {
     try{
@@ -173,6 +237,25 @@ export default class Text extends React.Component {
     }
   }
 
+  generateMnemonic24 = async() => {
+    try{
+      let y = true;
+      while(y === true){
+        var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(32));
+        mnemonic = mnemonic.split(" ");
+        let x = await this.analysis24(mnemonic);
+        if(x[0]+x[1]+x[2] === 100){
+          y = false;
+          this.setState({goodMnemonic:mnemonic.join(" ")});
+        }
+      }
+
+
+    }catch(err){
+      console.log(err.message);
+    }
+  }
+
     //// analysis LOGIC
     //// does same things as "analysis" with minor changess
     //// such as stating states
@@ -183,7 +266,13 @@ export default class Text extends React.Component {
             let duplicateGrade = 40;
             let consecutiveGrade = 30;
             let from10Grade = 30;
-            mnemonic.push(this.state.word1.toLowerCase(),this.state.word2.toLowerCase(), this.state.word3.toLowerCase(),this.state.word4.toLowerCase(),this.state.word5.toLowerCase(),this.state.word6.toLowerCase(),this.state.word7.toLowerCase(),this.state.word8.toLowerCase(),this.state.word9.toLowerCase(),this.state.word10.toLowerCase(),this.state.word11.toLowerCase(),this.state.word12.toLowerCase());
+            mnemonic.push(this.state.word1.toLowerCase(),this.state.word2.toLowerCase(), this.state.word3.toLowerCase(),this.state.word4.toLowerCase(),this.state.word5.toLowerCase(),this.state.word6.toLowerCase(),
+            this.state.word7.toLowerCase(),this.state.word8.toLowerCase(),this.state.word9.toLowerCase(),this.state.word10.toLowerCase(),this.state.word11.toLowerCase(),this.state.word12.toLowerCase());
+              // mnemonic.push(this.state.word1.toLowerCase(),this.state.word2.toLowerCase(), this.state.word3.toLowerCase(),this.state.word4.toLowerCase(),this.state.word5.toLowerCase(),this.state.word6.toLowerCase(),
+              // this.state.word7.toLowerCase(),this.state.word8.toLowerCase(),this.state.word9.toLowerCase(),this.state.word10.toLowerCase(),this.state.word11.toLowerCase(),this.state.word12.toLowerCase(),
+              // this.state.word13.toLowerCase(),this.state.word14.toLowerCase(), this.state.word15.toLowerCase(),this.state.word16.toLowerCase(),this.state.word17.toLowerCase(),this.state.word18.toLowerCase(),
+              // this.state.word19.toLowerCase(),this.state.word20.toLowerCase(),this.state.word21.toLowerCase(),this.state.word22.toLowerCase(),this.state.word23.toLowerCase(),this.state.word24.toLowerCase());
+            
             let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(mnemonic.join(" "));
             /// logic if menmonic is invalid (to do);
             if(mnemonicValid === false){
@@ -294,6 +383,128 @@ export default class Text extends React.Component {
         }
     }
 
+    startAnalysis24 = async () => {
+      try{
+          this.setState({showInfo:true, mnemonicDuplicates:false,});
+          var mnemonic = [];
+          let duplicateGrade = 40;
+          let consecutiveGrade = 30;
+          let from10Grade = 30;
+            mnemonic.push(this.state.word1.toLowerCase(),this.state.word2.toLowerCase(), this.state.word3.toLowerCase(),this.state.word4.toLowerCase(),this.state.word5.toLowerCase(),this.state.word6.toLowerCase(),
+            this.state.word7.toLowerCase(),this.state.word8.toLowerCase(),this.state.word9.toLowerCase(),this.state.word10.toLowerCase(),this.state.word11.toLowerCase(),this.state.word12.toLowerCase(),
+            this.state.word13.toLowerCase(),this.state.word14.toLowerCase(), this.state.word15.toLowerCase(),this.state.word16.toLowerCase(),this.state.word17.toLowerCase(),this.state.word18.toLowerCase(),
+            this.state.word19.toLowerCase(),this.state.word20.toLowerCase(),this.state.word21.toLowerCase(),this.state.word22.toLowerCase(),this.state.word23.toLowerCase(),this.state.word24.toLowerCase());
+          
+          let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(mnemonic.join(" "));
+          /// logic if menmonic is invalid (to do);
+          if(mnemonicValid === false){
+              this.setState({mnemonicLegit:false})
+          } else {
+              this.setState({mnemonicLegit:true});
+
+          }
+          let duplicates = this.checkDuplicates(mnemonic);
+          let theWords = [];
+          let theWords2 = [];
+          //// logic to iterate over array of duplicates
+          for(let [key, value] of Object.entries(duplicates)){
+              if(value > 1){
+                  duplicateGrade = duplicateGrade-(value* 1.5);
+                  this.setState({mnemonicDuplicates:true});
+                  // break;
+                  /// logic one word repeated say there is low rosk, one word repeated multiple times or 
+                  // multiple words is high risk!
+              }
+          };
+
+          /// logic to check if more consecutive words start with same letter
+          for(let i=0; i<mnemonic.length-1;i++) {
+
+              if((mnemonic[i].charCodeAt(0) - mnemonic[i+1].charCodeAt(0)) === 0){
+              theWords.push(mnemonic[i]);
+              }
+              
+              }
+          if(theWords.length >= 2){
+              consecutiveGrade = consecutiveGrade - (theWords.length *1.75);
+              this.setState({consecutiveLetters:true});
+              // console.log("hawai! At least 25% of your words start consecutively with the same letter")
+          } else {
+              this.setState({consecutiveLetters:false});
+          }
+
+          
+
+          /// logic to get how many words come from first 10% of all
+
+          for(let i=0; i<words240.length;i++){
+              for(let j=0;j<mnemonic.length;j++){
+                  if(words[i] === mnemonic[j]){
+                      // console.log(words[i]);
+                      /// logic for if 4 or more words, it's risky
+                      theWords2.push(words[i]);
+                  }
+              }
+          }
+          if(theWords2.length >= 4){
+              from10Grade = from10Grade-(theWords2.length*1.75)
+          }
+          this.setState({consecutiveLettersScore:consecutiveGrade})
+          let totalUser = from10Grade+consecutiveGrade+duplicateGrade;
+          const data = {
+              labels: ['Mnemonic Strength', "Time"],  
+          
+              datasets: [
+                {
+                  label: 'Recommended Score',
+                  fill: false,
+                  lineTension: 0.1,
+                  borderColor: 'rgba(75,192,192,1)',
+                  pointBorderColor: 'rgba(75,192,192,1)',
+                  pointBackgroundColor: 'rgba(75,192,192,1)',
+                  pointBorderWidth: 1,
+                  pointHoverRadius: 5,
+                  pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                  pointHoverBorderColor: 'rgba(220,220,220,1)',
+                  pointHoverBorderWidth: 2,
+                  pointRadius: 3,
+                  pointHitRadius: 10,
+                  data: [0,100]
+                },
+                {
+                  label: 'Your Score',
+                  fill: false,
+                  lineTension: 0.1,
+                  borderColor: '#ce0000',
+                  pointBorderColor: 'rgba(75,192,192,1)',
+                  pointBackgroundColor: '#ce0000',
+                  pointBorderWidth: 1,
+                  pointHoverRadius: 5,
+                  pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                  pointHoverBorderColor: 'rgba(220,220,220,1)',
+                  pointHoverBorderWidth: 2,
+                  pointRadius: 3,
+                  pointHitRadius: 10,
+                  data: [0,totalUser]
+                }
+              ]
+            };
+            this.setState({wordsFrom10:theWords2.length, mydata:data,score:totalUser})
+
+          // if(theWords2.length === 4){
+          //     this.setState({wordsFrom10:4});
+          //     console.log("hawai!, at least 30% of your words come from first 10% of all mnemonics")
+          // } else{
+          //     if(theWords2.length > 4){
+          //         console.log("very high risk as more than 33% of your words come from first 10% of all mnemonics");
+          //     }
+          // }
+  
+      } catch(err){
+          console.log(err.message);
+      }
+  }
+
     render(){
 
 
@@ -302,20 +513,25 @@ export default class Text extends React.Component {
         const handleTerms = event => {
             this.setState({termsAgree:event.target.value});
         }
+
+        const handleType = event => {
+          this.setState({type:event.target.value,word1:'',word2:'',word3:'',word4:'',word5:'',word6:'',word7:'',word8:'',word9:'',word10:'',word11:'',word12:'',word13:'',word14:'',word15:'',word16:'',word17:'',word18:'',word19:'',word20:'',word21:'',word22:'',word23:'',word24:''});
+
+        }
     
 
           
       return (
           <div>
                 <h2>Ethereum Mnemonic Analyser</h2>
+                
         <Grid container spacing={3}>
         {/* <Grid item xs={12} sm={3}>
         <p>Analyse how secure your mnemonic is. </p>
         </Grid> */}
         
         <Grid item xs={12} sm={12} lg={6}>
-        
-        <TextField required id="standard-basic" label="Word 1" value={this.state.word1} onChange={(event) => this.setState({word1:event.target.value.trim()})} />
+        {this.state.type === "12" ? ( <div>       <TextField required id="standard-basic" label="Word 1" value={this.state.word1} onChange={(event) => this.setState({word1:event.target.value.trim()})} />
         <TextField required id="standard-basic" label="Word 2" value={this.state.word2} onChange={(event) => this.setState({word2:event.target.value.trim()})} />
         <TextField required id="standard-basic" label="Word 3" value={this.state.word3} onChange={(event) => this.setState({word3:event.target.value.trim()})}/>
         <TextField required id="standard-basic" label="Word 4" value={this.state.word4} onChange={(event) => this.setState({word4:event.target.value.trim()})}/>
@@ -327,12 +543,40 @@ export default class Text extends React.Component {
         <TextField required id="standard-basic" label="Word 10" value={this.state.word10} onChange={(event) => this.setState({word10:event.target.value.trim()})} />
         <TextField required id="standard-basic" label="Word 11" value={this.state.word11} onChange={(event) => this.setState({word11:event.target.value.trim()})} />
         <TextField required id="standard-basic" label="Word 12" value={this.state.word12} onChange={(event) => this.setState({word12:event.target.value.trim()})} />
+        </div>) : (
+           <div>       <TextField required id="standard-basic" label="Word 1" value={this.state.word1} onChange={(event) => this.setState({word1:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 2" value={this.state.word2} onChange={(event) => this.setState({word2:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 3" value={this.state.word3} onChange={(event) => this.setState({word3:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 4" value={this.state.word4} onChange={(event) => this.setState({word4:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 5" value={this.state.word5} onChange={(event) => this.setState({word5:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 6" value={this.state.word6} onChange={(event) => this.setState({word6:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 7" value={this.state.word7} onChange={(event) => this.setState({word7:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 8" value={this.state.word8} onChange={(event) => this.setState({word8:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 9" value={this.state.word9} onChange={(event) => this.setState({word9:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 10" value={this.state.word10} onChange={(event) => this.setState({word10:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 11" value={this.state.word11} onChange={(event) => this.setState({word11:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 12" value={this.state.word12} onChange={(event) => this.setState({word12:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 13" value={this.state.word13} onChange={(event) => this.setState({word13:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 14" value={this.state.word14} onChange={(event) => this.setState({word14:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 15" value={this.state.word15} onChange={(event) => this.setState({word15:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 16" value={this.state.word16} onChange={(event) => this.setState({word16:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 17" value={this.state.word17} onChange={(event) => this.setState({word17:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 18" value={this.state.word18} onChange={(event) => this.setState({word18:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 19" value={this.state.word19} onChange={(event) => this.setState({word19:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 20" value={this.state.word20} onChange={(event) => this.setState({word20:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 21" value={this.state.word21} onChange={(event) => this.setState({word21:event.target.value.trim()})}/>
+           <TextField required id="standard-basic" label="Word 22" value={this.state.word22} onChange={(event) => this.setState({word22:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 23" value={this.state.word23} onChange={(event) => this.setState({word23:event.target.value.trim()})} />
+           <TextField required id="standard-basic" label="Word 24" value={this.state.word24} onChange={(event) => this.setState({word24:event.target.value.trim()})} />
+           </div>
+        ) }
+
 
         </Grid>
 
         <Grid item xs={12} sm={12} lg={6}>
     <FormControl fullWidth required>
-        <InputLabel htmlFor="age-native-required"> <a href="/terms">Terms & Conditions</a></InputLabel>
+    <InputLabel htmlFor="age-native-required"> <a href="/terms">Terms & Conditions</a></InputLabel>
         <Select
           native
           value={this.state.termsAgree}
@@ -346,14 +590,38 @@ export default class Text extends React.Component {
           <option value={"I Disagree"}>I Disagree</option>
         </Select>
         <FormHelperText>Required</FormHelperText>
+        
       </FormControl>
-      <Button variant="contained" color="secondary" style={{width:'100%'}} onClick={() => this.setState({showInfo:false,word1:'',word2:'',word3:'',word4:'',word5:'',word6:'',word7:'',word8:'',word9:'',word10:'',word11:'',word12:'',})}>
+
+
+{/* Second Form */}
+      <FormControl fullWidth required>
+      <InputLabel htmlFor="age-native-required">Seed Phrase Type</InputLabel>
+        <Select
+          native
+          value={this.state.type}
+          onChange={handleType}
+          name="Terms"
+          inputProps={{
+            id: 'Terms-native-required',
+          }}
+        >
+          <option value={"12"}>12 Words</option>
+          <option value={"24"}>24 Words</option>
+        </Select>
+        <FormHelperText>Required</FormHelperText>
+        </FormControl>
+      
+      <Button variant="contained" color="secondary" style={{width:'100%'}} onClick={() => this.setState({showInfo:false,word1:'',word2:'',word3:'',word4:'',word5:'',word6:'',word7:'',word8:'',word9:'',word10:'',word11:'',word12:'',word13:'',word14:'',word15:'',word16:'',word17:'',word18:'',word19:'',word20:'',word21:'',word22:'',word23:'',word24:''})}>
             Reset
             </Button>
             {/* {this.state.termsAgree == "I Agree" ? <h2>hahaha</h2> : <br />} */}
-            <Button variant="contained" color="secondary" style={{width:'100%', marginTop:'5px'}} onClick={this.startAnalysis}>
+            {this.state.type === "12" ? (            <Button variant="contained" color="secondary" style={{width:'100%', marginTop:'5px'}} onClick={this.startAnalysis}>
             Go
-            </Button>
+            </Button>) : (            <Button variant="contained" color="secondary" style={{width:'100%', marginTop:'5px'}} onClick={this.startAnalysis24}>
+            Go
+            </Button>) }
+
             
         </Grid>
         <Grid xs={12}>
@@ -421,15 +689,15 @@ export default class Text extends React.Component {
         style={{width:'100%',marginTop:'5px', marginBottom:'10px'}}
         variant="contained"
         color="default"
-        onClick={this.generateMnemonic}
+        onClick={() => this.setState({generateMnemonicDialog:true})}
         startIcon={<div><SecurityIcon/><span style={{border:'1px solid black',textTransform:'none'}}>MetaSafe</span></div>}
       >
         Generate Free  Mnemonic  
       </Button>
-      {this.state.goodMnemonic !== '' ? this.state.goodMnemonic :       <Typography variant="subtitle1" gutterBottom>
+ <Typography variant="subtitle1" gutterBottom>
           Are you an exchange and need many safe mnemonics for your users? 
            <a href="/">Click here</a>
-          </Typography>}
+          </Typography>
 
           {/* <h5>Your <span style={{border:'1px solid black',textTransform:'none'}}> MetaSafe</span>  mnemonic is: </h5>
       <p>
@@ -544,7 +812,58 @@ export default class Text extends React.Component {
           </Button>
         </DialogActions>
       </Dialog>
+      
 
+                <Dialog
+          maxWidth={'sm'}
+          fullWidth={true}
+        open={this.state.generateMnemonicDialog}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={this.handleClosegenerateMnemonic}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{<div>FREE <span style={{border:'1px solid black',textTransform:'none'}}>MetaSafe</span> MNEMONIC</div>}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+
+<Grid container spacing={2}>
+<Grid item xs={6}>
+<Button fullWidth
+        style={{marginTop:'5px', marginBottom:'10px'}}
+        variant="contained"
+        color="primary"
+        // onClick={this.generateMnemonic}
+        onClick={this.generateMnemonic}
+        startIcon={<div><SecurityIcon/><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
+      >
+        Generate 12 Words  Mnemonic  
+      </Button>   
+      </Grid>   
+<Grid item xs={6}>    
+      <Button fullWidth
+        style={{marginTop:'5px', marginBottom:'10px'}}
+        variant="contained"
+        color="primary"
+        onClick={this.generateMnemonic24}
+        startIcon={<div><SecurityIcon/><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
+      >
+        Generate 24 Words  Mnemonic  
+      </Button>  
+      </Grid> 
+      </Grid>
+      <Divider />
+      {this.state.goodMnemonic !== '' ? this.state.goodMnemonic : <span />}
+
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleClosegenerateMnemonic} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
       {/* consecutiveLettersDialog */}
         </div>  
       );
