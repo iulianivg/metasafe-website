@@ -695,7 +695,7 @@ return [duplicateGrade,consecutiveGrade,from10Grade];
         Generate Free  Mnemonic  
       </Button>
  <Typography variant="subtitle1" gutterBottom>
-          Are you an exchange and need many safe mnemonics for your users? 
+          Are you an exchange, wallet or other company and need many safe mnemonics for your users? 
            <a href="/">Click here</a>
           </Typography>
 
