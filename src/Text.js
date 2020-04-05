@@ -28,7 +28,7 @@ import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import {generateMnemonic12, generateMnemonic24} from 'metasafe-eth';
 
 
 
@@ -204,57 +204,28 @@ return [duplicateGrade,consecutiveGrade,from10Grade];
 }
 
 
-  generateMnemonic = async() => {
-    try{
-      let y = true;
-      while(y === true){
-        var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
-        mnemonic = mnemonic.split(" ");
-        let x = await this.analysis(mnemonic);
-        if(x[0]+x[1]+x[2] === 100){
-          y = false;
-          this.setState({goodMnemonic:mnemonic.join(" ")});
-        }
-      }
+generateMnemonic = async() => {
+  try{
+    let mnemonic = await generateMnemonic12();
+    this.setState({goodMnemonic:mnemonic.join(" ")});
 
-      // let goodMnemonics = 0;
-      // let badMnemonics = 0;
-      // for(let i=0; i<1000000;i++){
-      //   var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
-      //   var mnemonic = mnemonic.split(" ");
-      //   let x = await this.analysis(mnemonic); 
 
-      //   if(x[0]+x[1]+x[2] === 100){
-      //     goodMnemonics++;
-      //   } else {
-      //     badMnemonics++;
-      //   }
 
-      // }
-
-    }catch(err){
-      console.log(err.message);
-    }
+  }catch(err){
+    console.log(err.message);
   }
-
-  generateMnemonic24 = async() => {
-    try{
-      let y = true;
-      while(y === true){
-        var mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(32));
-        mnemonic = mnemonic.split(" ");
-        let x = await this.analysis24(mnemonic);
-        if(x[0]+x[1]+x[2] === 100){
-          y = false;
-          this.setState({goodMnemonic:mnemonic.join(" ")});
-        }
-      }
+}
+generateMnemonic24 = async() => {
+  try{
+    let mnemonic = await generateMnemonic24();
+    this.setState({goodMnemonic:mnemonic.join(" ")});
 
 
-    }catch(err){
-      console.log(err.message);
-    }
+  }catch(err){
+    console.log(err.message);
   }
+}
+
 
     //// analysis LOGIC
     //// does same things as "analysis" with minor changess

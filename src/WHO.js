@@ -14,7 +14,6 @@ import ApartmentIcon from '@material-ui/icons/Apartment';
 import LanguageIcon from '@material-ui/icons/Language';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
-
 export default class WHOpage extends React.Component {
     state = {
       id:'',
@@ -29,7 +28,6 @@ export default class WHOpage extends React.Component {
       try{
         let info = await Smart.methods.VerifiedAddresses(this.state.id).call();
         this.setState({website:info[1],realId:info[0],companyName:info[2],attempted:true});
-        console.log(info);
 
       } catch(err){
         console.log(err.message);
