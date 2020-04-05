@@ -21,9 +21,11 @@ export default class Documentation extends React.Component {
 
                 <Grid item xs={12}>
 
-                <h3>Installation </h3>
-                <blockquote style={{color:'white',backgroundColor:'#272727',height:'5vh',fontFamily:'"Fira Mono", "Andale Mono", "Consolas", monospace'}}> <NavigateNextIcon /> npm install --save metasafe-eth</blockquote>
-                
+                <h3>Installation </h3>                
+                </Grid>
+                <Grid item xs={12}>
+                <div style={{color:'white',backgroundColor:'#272727',height:'5vh',fontFamily:'"Fira Mono", "Andale Mono", "Consolas", monospace',width:'100%'}}> <NavigateNextIcon /> npm install --save metasafe-eth</div>
+
                 </Grid>
                     <Divider style={{width:'100%'}} />
 
@@ -31,7 +33,7 @@ export default class Documentation extends React.Component {
                 <h3>Usage </h3>
 
             
- <blockquote style={{color:'white',backgroundColor:'#272727',fontFamily:'"Fira Mono", "Andale Mono", "Consolas", monospace',padding:'10px'}}>   
+ <div style={{color:'white',backgroundColor:'#272727',fontFamily:'"Fira Mono", "Andale Mono", "Consolas", monospace',padding:'10px',width:'100%'}}>   
  var metasafe = require('metasafe-eth');
           <br /> <br />
           metasafe.generateMnemonic12().then((event) => {'{console.log(event);}'}) <br /> <span style={{color:'grey'}}> /// result => a safe 12 words mnemonic phrase </span>
@@ -56,11 +58,11 @@ export default class Documentation extends React.Component {
  <span style={{color:'grey'}}>/// 100 = secure. Less than 100 = less secure </span> <br /> 
  <br /> 
 
- </blockquote>
+ </div>
 
 
             or
-          <blockquote style={{color:'white',backgroundColor:'#272727',fontFamily:'"Fira Mono", "Andale Mono", "Consolas", monospace',padding:'10px'}}>   
+          <div style={{color:'white',backgroundColor:'#272727',fontFamily:'"Fira Mono", "Andale Mono", "Consolas", monospace',padding:'10px', width:'100%'}}>   
           import {'{generateMnemonic12, generateMnemonic24, analysis12, analysis24}'} from 'metasafe-eth';
           <br /> <br />
           mnemonicOf12 = async() => {'{'}
@@ -74,9 +76,9 @@ export default class Documentation extends React.Component {
           <br />  {'}'}
           <br /> <br />
           analyze12 = async() => {'{'}
-          <br /> var mnemonic = ['add','wealth','wealth','wealth','wealth', <br /> 
+          <br /> <br /> var mnemonic = ['add','wealth','wealth','wealth','wealth', <br /> 
             'wealth','wealth','wealth','wealth','wealth', <br /> 
-            'wealth','wealth']; <br />
+            'wealth','wealth']; <br /> <br />
           let grades = await analysis12(mnemonic); 
           <br /> console.log(mnemonic)           <br />  {'}'}
  <br />  
@@ -87,7 +89,7 @@ export default class Documentation extends React.Component {
  <span style={{color:'grey'}}>/// 100 = secure. Less than 100 = less secure </span> <br /> 
  <br /> 
 
- </blockquote>
+ </div>
 
                 </Grid>
 
