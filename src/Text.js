@@ -678,6 +678,22 @@ generateMnemonic24 = async() => {
 
         </Grid>  
         </Grid> : <br />}
+        <Grid container spacing={3} style={{textAlign:'left'}}>
+        <Grid item xs={12}>
+                <h3> How it Works </h3> 
+                <p>                    Each mnemonic can have a total grade of '100' which indicates it is safe.
+ In order to generate our mnemonics we take in consideration the following factors: 
+                    <ol> 
+                        <li>Number of repeating words: 40 points maximum</li>
+                        <li>Number of words starting with the same letter: 30 points maximum </li>
+                        <li>Number of words coming from the first 10% of all 2048 mnemonic words: 30 points maximum </li>
+                    </ol>
+                    For each repetition (maximum 11 or 23) we subtract from <span style={{fontWeight:'bold'}}>1 (40 points)</span> 3 points in 12 words mnemonics and 1.5 in 24 words mnemonics.  <br />
+                    For each word starting with the same letter we subtract from <span style={{fontWeight:'bold'}}>2 (30 points)</span> 2.5 points in 12 words mnemonics and 1.75 in 24 words mnemonics <br />
+                    If the seed phrase has 4 or more words coming from first 10% of all mnemonic words, we subtract from <span style={{fontWeight:'bold'}}>3 (30 points)</span> 2.5 points in 12 words mnemonics and 1.75 in 24 words mnemonics
+                     </p>
+                </Grid>
+        </Grid>
         <Dialog
         open={this.state.mnemonicLegitDialog}
         TransitionComponent={Transition}
