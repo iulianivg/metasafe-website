@@ -28,7 +28,7 @@ import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import {generateMnemonic12, generateMnemonic24} from 'metasafe-eth';
+import {generateMnemonic12, generateMnemonic24, analysis12, analysis24} from 'metasafe-eth';
 
 
 
@@ -76,7 +76,7 @@ export default class Text extends React.Component {
       consecutiveLetters:false,
       consecutiveLettersDialog:false,
       consecutiveLettersScore:0,
-      wordsFrom10:0,
+      wordsFrom10:false,
       wordsFrom10Dialog:false,
       mydata: {},
       counterMnemonic:0,
@@ -116,92 +116,6 @@ export default class Text extends React.Component {
     }
 
 
-    /// function to analyze array of mnemonics and get their grades
-    analysis = async(wordss) => {
-      // let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
-      // random check to see if mnemonic is valid
-      let duplicates = this.checkDuplicates(wordss);
-      let duplicateGrade = 40;
-      let consecutiveGrade = 30;       
-      let from10Grade = 30;
-      let theWords = [];
-      let theWords2 = [];
-
-      for(let [key, value] of Object.entries(duplicates)){
-        if(value > 1) {
-          duplicateGrade = duplicateGrade-(value* 3);
-        }
-      }
-
-      for(let i=0; i<wordss.length-1;i++) {
-        if((wordss[i].charCodeAt(0) - wordss[i+1].charCodeAt(0)) === 0){
-          theWords.push(wordss[i]);
-        }
-      }
-      if(theWords.length >= 2){
-        consecutiveGrade = consecutiveGrade - (theWords.length *2.5);
-    }
-
-    for(let i=0; i<words240.length;i++){
-      for(let j=0;j<wordss.length;j++){
-          if(words240[i] === wordss[j]){
-              // console.log(words[i]);
-              /// logic for if 4 or more words, it's risky
-              theWords2.push(words[i]);
-          }
-      }
-  }
-  if(theWords2.length >= 4){
-      from10Grade = from10Grade-(theWords2.length*2.5)
-  }
-
-  return [duplicateGrade,consecutiveGrade,from10Grade];
-
-
-  }
-
-  analysis24 = async(wordss) => {
-    // let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(wordss.join(" "));
-      // random check to see if mnemonic is valid
-    let duplicates = this.checkDuplicates(wordss);
-    let duplicateGrade = 40;
-    let consecutiveGrade = 30;       
-    let from10Grade = 30;
-    let theWords = [];
-    let theWords2 = [];
-
-    for(let [key, value] of Object.entries(duplicates)){
-      if(value > 1) {
-        duplicateGrade = duplicateGrade-(value* 1.5);
-      }
-    }
-
-    for(let i=0; i<wordss.length-1;i++) {
-      if((wordss[i].charCodeAt(0) - wordss[i+1].charCodeAt(0)) === 0){
-        theWords.push(wordss[i]);
-      }
-    }
-    if(theWords.length >= 2){
-      consecutiveGrade = consecutiveGrade - (theWords.length *1.75);
-  }
-
-  for(let i=0; i<words240.length;i++){
-    for(let j=0;j<wordss.length;j++){
-        if(words240[i] === wordss[j]){
-            // console.log(words[i]);
-            /// logic for if 4 or more words, it's risky
-            theWords2.push(wordss[i]);
-        }
-    }
-}
-if(theWords2.length >= 4){
-    from10Grade = from10Grade-(theWords2.length*1.75)
-}
-
-return [duplicateGrade,consecutiveGrade,from10Grade];
-
-
-}
 
 
 generateMnemonic = async() => {
@@ -232,7 +146,7 @@ generateMnemonic24 = async() => {
     //// such as stating states
     startAnalysis = async () => {
         try{
-            this.setState({showInfo:true, mnemonicDuplicates:false,});
+            this.setState({showInfo:true, mnemonicDuplicates:false});
             var mnemonic = [];
             let duplicateGrade = 40;
             let consecutiveGrade = 30;
@@ -243,7 +157,6 @@ generateMnemonic24 = async() => {
               // this.state.word7.toLowerCase(),this.state.word8.toLowerCase(),this.state.word9.toLowerCase(),this.state.word10.toLowerCase(),this.state.word11.toLowerCase(),this.state.word12.toLowerCase(),
               // this.state.word13.toLowerCase(),this.state.word14.toLowerCase(), this.state.word15.toLowerCase(),this.state.word16.toLowerCase(),this.state.word17.toLowerCase(),this.state.word18.toLowerCase(),
               // this.state.word19.toLowerCase(),this.state.word20.toLowerCase(),this.state.word21.toLowerCase(),this.state.word22.toLowerCase(),this.state.word23.toLowerCase(),this.state.word24.toLowerCase());
-            
             let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(mnemonic.join(" "));
             /// logic if menmonic is invalid (to do);
             if(mnemonicValid === false){
@@ -252,54 +165,26 @@ generateMnemonic24 = async() => {
                 this.setState({mnemonicLegit:true});
 
             }
-            let duplicates = this.checkDuplicates(mnemonic);
-            let theWords = [];
-            let theWords2 = [];
-            //// logic to iterate over array of duplicates
-            for(let [key, value] of Object.entries(duplicates)){
-                if(value > 1){
-                    duplicateGrade = duplicateGrade-(value* 3);
-                    this.setState({mnemonicDuplicates:true});
-                    // break;
-                    /// logic one word repeated say there is low rosk, one word repeated multiple times or 
-                    // multiple words is high risk!
-                }
-            };
-
-            /// logic to check if more consecutive words start with same letter
-            for(let i=0; i<mnemonic.length-1;i++) {
-
-                if((mnemonic[i].charCodeAt(0) - mnemonic[i+1].charCodeAt(0)) === 0){
-                theWords.push(mnemonic[i]);
-                }
-                
-                }
-            if(theWords.length >= 2){
-                consecutiveGrade = consecutiveGrade - (theWords.length *2.5);
-                this.setState({consecutiveLetters:true});
-                // console.log("hawai! At least 25% of your words start consecutively with the same letter")
+            let grade = await analysis12(mnemonic);
+            if(grade[0] !== duplicateGrade) {
+              this.setState({mnemonicDuplicates:true})
             } else {
-                this.setState({consecutiveLetters:false});
+              this.setState({mnemonicDuplicates:false});
             }
 
-            
-
-            /// logic to get how many words come from first 10% of all
-
-            for(let i=0; i<words240.length;i++){
-                for(let j=0;j<mnemonic.length;j++){
-                    if(words[i] === mnemonic[j]){
-                        // console.log(words[i]);
-                        /// logic for if 4 or more words, it's risky
-                        theWords2.push(words[i]);
-                    }
-                }
+            if(grade[1] !== consecutiveGrade) {
+              this.setState({consecutiveLetters:true});
+            } else {
+              this.setState({consecutiveLetters:false});
             }
-            if(theWords2.length >= 4){
-                from10Grade = from10Grade-(theWords2.length*2.5)
+            if(grade[2] !== from10Grade) {
+              this.setState({wordsFrom10:true})
+            } else {
+              this.setState({wordsFrom10:false})
+
             }
-            this.setState({consecutiveLettersScore:consecutiveGrade})
-            let totalUser = from10Grade+consecutiveGrade+duplicateGrade;
+
+            let totalUser = grade[0]+grade[1]+grade[2];
             const data = {
                 labels: ['Mnemonic Strength', "Time"],  
             
@@ -338,16 +223,8 @@ generateMnemonic24 = async() => {
                   }
                 ]
               };
-              this.setState({wordsFrom10:theWords2.length, mydata:data,score:totalUser})
+              this.setState({mydata:data,score:totalUser})
 
-            // if(theWords2.length === 4){
-            //     this.setState({wordsFrom10:4});
-            //     console.log("hawai!, at least 30% of your words come from first 10% of all mnemonics")
-            // } else{
-            //     if(theWords2.length > 4){
-            //         console.log("very high risk as more than 33% of your words come from first 10% of all mnemonics");
-            //     }
-            // }
     
         } catch(err){
             console.log(err.message);
@@ -374,54 +251,27 @@ generateMnemonic24 = async() => {
               this.setState({mnemonicLegit:true});
 
           }
-          let duplicates = this.checkDuplicates(mnemonic);
-          let theWords = [];
-          let theWords2 = [];
-          //// logic to iterate over array of duplicates
-          for(let [key, value] of Object.entries(duplicates)){
-              if(value > 1){
-                  duplicateGrade = duplicateGrade-(value* 1.5);
-                  this.setState({mnemonicDuplicates:true});
-                  // break;
-                  /// logic one word repeated say there is low rosk, one word repeated multiple times or 
-                  // multiple words is high risk!
-              }
-          };
-
-          /// logic to check if more consecutive words start with same letter
-          for(let i=0; i<mnemonic.length-1;i++) {
-
-              if((mnemonic[i].charCodeAt(0) - mnemonic[i+1].charCodeAt(0)) === 0){
-              theWords.push(mnemonic[i]);
-              }
-              
-              }
-          if(theWords.length >= 2){
-              consecutiveGrade = consecutiveGrade - (theWords.length *1.75);
-              this.setState({consecutiveLetters:true});
-              // console.log("hawai! At least 25% of your words start consecutively with the same letter")
+          let grade = await analysis24(mnemonic);
+          if(grade[0] !== duplicateGrade) {
+            this.setState({mnemonicDuplicates:true})
           } else {
-              this.setState({consecutiveLetters:false});
+            this.setState({mnemonicDuplicates:false});
           }
 
-          
-
-          /// logic to get how many words come from first 10% of all
-
-          for(let i=0; i<words240.length;i++){
-              for(let j=0;j<mnemonic.length;j++){
-                  if(words[i] === mnemonic[j]){
-                      // console.log(words[i]);
-                      /// logic for if 4 or more words, it's risky
-                      theWords2.push(words[i]);
-                  }
-              }
+          if(grade[1] !== consecutiveGrade) {
+            this.setState({consecutiveLetters:true});
+          } else {
+            this.setState({consecutiveLetters:false});
           }
-          if(theWords2.length >= 4){
-              from10Grade = from10Grade-(theWords2.length*1.75)
+          if(grade[2] !== from10Grade) {
+            this.setState({wordsFrom10:true})
+          } else {
+            this.setState({wordsFrom10:false})
+
           }
-          this.setState({consecutiveLettersScore:consecutiveGrade})
-          let totalUser = from10Grade+consecutiveGrade+duplicateGrade;
+
+          let totalUser = grade[0]+grade[1]+grade[2];
+
           const data = {
               labels: ['Mnemonic Strength', "Time"],  
           
@@ -460,7 +310,7 @@ generateMnemonic24 = async() => {
                 }
               ]
             };
-            this.setState({wordsFrom10:theWords2.length, mydata:data,score:totalUser})
+            this.setState({mydata:data,score:totalUser})
 
           // if(theWords2.length === 4){
           //     this.setState({wordsFrom10:4});
@@ -635,12 +485,12 @@ generateMnemonic24 = async() => {
           <ListItemIcon>
               {this.state.consecutiveLetters === false ?             <CheckCircleIcon htmlColor="green" /> :             <CancelIcon color="error" />}
           </ListItemIcon>
-          <ListItemText primary="No three or more consecutive words starting with the same letter" />
+          <ListItemText primary="No three or more consecutive words starting with the same letter or more than one pair of two consecutive words" />
           <InfoOutlinedIcon htmlColor="grey" />
         </ListItem>
         <ListItem button onClick={() => this.setState({wordsFrom10Dialog:true})}>
           <ListItemIcon>
-              {this.state.wordsFrom10 >= 4 ?  <CancelIcon color="error" /> : <CheckCircleIcon htmlColor="green" />}
+              {this.state.wordsFrom10 === true ?  <CancelIcon color="error" /> : <CheckCircleIcon htmlColor="green" />}
           </ListItemIcon>
           <ListItemText primary="Less than 4 words come from first 10% of all mnemonics" /> <InfoOutlinedIcon htmlColor="grey" />
         </ListItem> 
@@ -651,7 +501,6 @@ generateMnemonic24 = async() => {
         <br />
         </Grid> 
         <Grid item xs={12} sm={6} lg={5}>
-        {this.state.mnemonicLegit === true && this.state.wordsFrom10 <4 && this.state.mnemonicDuplicates === false ? (<span />) : <span />}
         {this.state.mnemonicLegit === true && this.state.score === 100 ?     <Alert variant="filled" severity="success">You mnemonic is safe</Alert> : this.state.mnemonicLegit === true && this.state.score < 100 ?         <Alert variant="filled" severity="warning">Warning! Mnemonic is not safe. Hackers can steal your funds</Alert>
 : <span /> }
     
@@ -685,11 +534,11 @@ generateMnemonic24 = async() => {
  In order to generate our mnemonics we take in consideration the following factors: 
                     <ol> 
                         <li>Number of repeating words: 40 points maximum</li>
-                        <li>Number of words starting with the same letter: 30 points maximum </li>
+                        <li>Number of words consecutive words or pairs starting with the same letter: 30 points maximum </li>
                         <li>Number of words coming from the first 10% of all 2048 mnemonic words: 30 points maximum </li>
                     </ol>
                     For each repetition (maximum 11 or 23) we subtract from <span style={{fontWeight:'bold'}}>1 (40 points)</span> 3 points in 12 words mnemonics and 1.5 in 24 words mnemonics.  <br />
-                    For each word starting with the same letter we subtract from <span style={{fontWeight:'bold'}}>2 (30 points)</span> 2.5 points in 12 words mnemonics and 1.75 in 24 words mnemonics <br />
+                    When there are three consecutive words or 2+ groups of consecutive words, for each word starting with the same letter we subtract from <span style={{fontWeight:'bold'}}>2 (30 points)</span> 2.5 points in 12 words mnemonics and 1.75 in 24 words mnemonics <br />
                     If the seed phrase has 4 or more words coming from first 10% of all mnemonic words, we subtract from <span style={{fontWeight:'bold'}}>3 (30 points)</span> 2.5 points in 12 words mnemonics and 1.75 in 24 words mnemonics
                      </p>
                 </Grid>
