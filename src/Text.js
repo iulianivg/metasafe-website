@@ -485,7 +485,7 @@ generateMnemonic24 = async() => {
           <ListItemIcon>
               {this.state.consecutiveLetters === false ?             <CheckCircleIcon htmlColor="green" /> :             <CancelIcon color="error" />}
           </ListItemIcon>
-          <ListItemText primary="No three or more consecutive words starting with the same letter or more than one pair of two consecutive words" />
+          <ListItemText primary="No pairs or 3+ consecutive words starting with the same letter" />
           <InfoOutlinedIcon htmlColor="grey" />
         </ListItem>
         <ListItem button onClick={() => this.setState({wordsFrom10Dialog:true})}>
