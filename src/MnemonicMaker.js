@@ -88,7 +88,7 @@ export default class MnemonicMaker extends React.Component {
                     <Grid item xs={3}></Grid>
                     <Grid item xs={12} md={6}>
                     <Alert variant="filled" severity="info">
-        We have analyzed over 100 MILLION user seed phrases and 19.6% are constantly coming out as vulnerable based on our criteria. 
+        We used AI to  analyze over 100 MILLION user seed phrases and 19.6% are constantly coming out as vulnerable based on our criteria. 
                  </Alert>
 
                         <h4>
