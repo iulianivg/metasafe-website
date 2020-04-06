@@ -189,6 +189,7 @@ export default class MnemonicMaker extends React.Component {
         Generate Free  Mnemonic  
       </Button>
                 </CardActions>
+                <a style={{color:'grey',textDecoration:'none'}} href="/terms">Terms & Conditions apply</a> 
                 {/* {this.state.goodMnemonic !== '' ? this.state.goodMnemonic : <span />} */}
 
               </Card>
