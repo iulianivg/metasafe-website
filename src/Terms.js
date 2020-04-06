@@ -65,9 +65,10 @@ export default class Terms extends React.Component {
                                 operations happen. MetaSafe does not collect or hold your mnemonic information, 
                                 and the operations are entirely client side. 
                             </p>
-                            <p>If you are an Enterprise Client, your mnemonics may still be created front-end or back-end 
-                                depending on your needs. If a back-end solution is more appropriate, MetaSafe will take all 
-                                necessary measures to protect your confidentiality including forcing HTTPS encrypted communication. 
+                            <p>If you are an Enterprise Client, you may use our npm package to generate or analyze your user mnemonics. You may opt in to create mnemonics front-end or back-end 
+                                depending on your needs. You must let us know if you're using MetaSafe Service such that we can provide you with a badge. Using MetaSafe as an enterprise without our 
+                                authorization is a breach of agreement. Fees apply on the creation of your badge and storage of your Service usage on the blockchain. Shall you not respect this 
+                                condition you agree that MetaSafe will take you to court in United Kingdom in order to resolve our dispute. 
                             </p>
                             <p>
                                 You expressly relieve and release MetaSafe from any and all liability and/or loss arising from your 
