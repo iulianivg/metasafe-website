@@ -6,7 +6,12 @@ import ListItem from '@material-ui/core/ListItem';
 
 export default class Donate extends React.Component {
 
+        
+    componentDidMount() {
+        window.scrollTo(0, 0)
+      }
 
+      
     render(){
 
 

@@ -47,7 +47,12 @@ export default class MnemonicMaker extends React.Component {
         consecutiveLettersDialog:false,
     }
 
+        
+    componentDidMount() {
+      window.scrollTo(0, 0)
+    }
 
+    
     handleCloseconsecutiveLetters = async() => {
       this.setState({consecutiveLettersDialog:false})
     }

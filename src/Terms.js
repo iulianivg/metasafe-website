@@ -4,7 +4,10 @@ import Grid from '@material-ui/core/Grid';
 
 export default class Terms extends React.Component {
 
-
+    
+    componentDidMount() {
+        window.scrollTo(0, 0)
+      }
     
     render(){
 

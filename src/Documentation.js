@@ -5,7 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 export default class Documentation extends React.Component {
 
-
+    
+    componentDidMount() {
+        window.scrollTo(0, 0)
+      }
     
     render(){
 

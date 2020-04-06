@@ -85,9 +85,7 @@ export default class Text extends React.Component {
       type:"12",
       generateMnemonicDialog:false,
     }
-    componentDidMount() {
-        console.log("Hi");
-    }
+
     
     checkDuplicates = names =>
     names.reduce((a, b) => ({ ...a,
