@@ -534,7 +534,7 @@ generateMnemonic24 = async() => {
  In order to generate our mnemonics we take in consideration the following factors: 
                     <ol> 
                         <li>Number of repeating words: 40 points maximum</li>
-                        <li>Number of words consecutive words or pairs starting with the same letter: 30 points maximum </li>
+                        <li>Number of consecutive words or pairs starting with the same letter: 30 points maximum </li>
                         <li>Number of words coming from the first 10% of all 2048 mnemonic words: 30 points maximum </li>
                     </ol>
                     For each repetition (maximum 11 or 23) we subtract from <span style={{fontWeight:'bold'}}>1 (40 points)</span> 3 points in 12 words mnemonics and 1.5 in 24 words mnemonics.  <br />
