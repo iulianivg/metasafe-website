@@ -16,24 +16,22 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import SpeedIcon from '@material-ui/icons/Speed';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import SecurityIcon from '@material-ui/icons/Security';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide'
 
-function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return `For each ad campaign that you create, you can control how much
-                you're willing to spend on clicks and conversions, which networks
-                and geographical locations you want your ads to show on, and more.`;
-      case 1:
-        return 'An ad group contains one or more ads which target a shared set of keywords.';
-      case 2:
-        return `Try out different ad text to see what brings in the most customers,
-                and learn how to enhance your ads using features like ad extensions.
-                If you run into any problems with your ads, find out how to tell if
-                they're running and how to resolve approval issues.`;
-      default:
-        return 'Unknown step';
-    }
-  }
+import recovery from './Smart Contract/recovery';
+import words from './words';
+import { CircularProgress } from '@material-ui/core';
+const Web3 = require("web3");
+var ethers = require("ethers");
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
 
 
 export default class RecoverSeed extends React.Component {
@@ -64,6 +62,11 @@ export default class RecoverSeed extends React.Component {
         word11Disabled:false,
         word12:'',
         word12Disabled:false,
+        results:[],
+        hasStarted:false,
+        seeData:false,
+        needsAccess:false,
+        loading:false,
     }
 
     componentDidMount() {
@@ -74,12 +77,103 @@ export default class RecoverSeed extends React.Component {
     forceWord = async() => {
         try{ 
 
+            /// check provider ////
+            let web3;
+// const apiLink = options.api;
+const apiLink = "https://rinkeby.infura.io/v3/4b6cf47f5f6e4aca850c45c04a58cf0d";
+// const apiLink= "http://127.0.0.1:8545";
+if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
+  web3 = new Web3(window.web3.currentProvider);
+} else {
+
+  const provider = new Web3.providers.HttpProvider(apiLink
+    // pass url of remote node
+    // 'https://mainnet.infura.io/v3/4b6cf47f5f6e4aca850c45c04a58cf0d'
+  );
+  web3 = new Web3(provider);
+}
+let walletPath = {
+    "standard": `m/44'/60'/0'/0/0`,
+    // m/44'/60'/0' LEDGER (ETH)
+    // @TODO: Include some non-standard wallet paths
+};
+
+window.ethereum.enable();
+
+/// add mnemonics
+
+            let accounts = await web3.eth.getAccounts();
+            let hasAccess = await recovery.methods.players(accounts[0]).call();
+            if(hasAccess === true) {
+            let mnemonic = [];
+            let emptyArray = this.state.results;
+            emptyArray.length = 0;
+            this.setState({results:emptyArray,hasStarted:true,seeData:true})
+            mnemonic.push(this.state.word1.toLowerCase(),this.state.word2.toLowerCase(), this.state.word3.toLowerCase(),this.state.word4.toLowerCase(),this.state.word5.toLowerCase(),this.state.word6.toLowerCase(),
+            this.state.word7.toLowerCase(),this.state.word8.toLowerCase(),this.state.word9.toLowerCase(),this.state.word10.toLowerCase(),this.state.word11.toLowerCase(),this.state.word12.toLowerCase());
+            let time = new Date();
+            let userIndex = this.state.wordIndex-1;
+            for(var i=0; i<2048; i++){
+                mnemonic[userIndex] = words[i];
+                let mnemonicValid = ethers.utils.HDNode.isValidMnemonic(mnemonic.join(" "));
+                if(mnemonicValid === true){
+                    let myResults = this.state.results;
+                    let hdnode = ethers.utils.HDNode.fromMnemonic(mnemonic.join(" "));
+                    let node = hdnode.derivePath(walletPath.standard);
+                    let wallet = new ethers.Wallet(node.privateKey);
+                    let balance = await web3.eth.getBalance(wallet.address);
+                    balance = web3.utils.fromWei(balance, 'ether');
+                    myResults.push(<div style={{padding:'5px'}}>Mnemonic {mnemonic.join(" ")} with balance {balance}, {i+1} of 2048 <Divider style={{width:'100%'}} /></div>)
+                    this.setState({results:myResults});
+            }
         }
+        this.setState({hasStarted:false});
+    } else {
+        this.setState({needsAccess:true});
+    }
+    }
         catch(err){
             console.log(err.message);
         }
     }
 
+    buyAccess = async() => {
+        try{
+            let web3;
+            // const apiLink = options.api;
+            const apiLink = "https://rinkeby.infura.io/v3/4b6cf47f5f6e4aca850c45c04a58cf0d";
+            // const apiLink= "http://127.0.0.1:8545";
+            if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
+              web3 = new Web3(window.web3.currentProvider);
+            } else {
+            
+              const provider = new Web3.providers.HttpProvider(apiLink
+                // pass url of remote node
+                // 'https://mainnet.infura.io/v3/4b6cf47f5f6e4aca850c45c04a58cf0d'
+              );
+              web3 = new Web3(provider);
+            }
+            let walletPath = {
+                "standard": `m/44'/60'/0'/0/0`,
+                // m/44'/60'/0' LEDGER (ETH)
+                // @TODO: Include some non-standard wallet paths
+            };
+            
+            window.ethereum.enable();
+
+            let accounts = await web3.eth.getAccounts();
+            this.setState({loading:true});
+            await recovery.methods.buyAccess().send({ 
+                from:accounts[0],
+                value:web3.utils.toWei('0.25','ether')
+            });
+            this.setState({loading:false});
+            window.location.reload();
+        } catch(err){
+            this.setState({loading:false})
+            console.log(err.message);
+        }
+    }
 
     render()
     {
@@ -229,9 +323,47 @@ export default class RecoverSeed extends React.Component {
         <FormHelperText>Required</FormHelperText>
         
       </FormControl>
-                <Button fullWidth variant="contained" color="secondary">Recover Seed Phrase</Button>
+                {/* <Button onClick={this.forceWord} disabled={this.state.hasStarted} fullWidth variant="contained" color="secondary">Recover Seed Phrase</Button> */}
+                <Button disabled fullWidth variant="contained" color="secondary">Recover Seed Phrase (coming soon)</Button>
+                <a style={{color:'grey',textDecoration:'none'}} href="/terms">Terms & Conditions apply</a> 
 
                 </Grid>
+                <br /> 
+                <Divider style={{width:'100%'}} />
+                <Grid item xs={12} md={2} />
+                <Grid item xs={12} md ={8}>
+                {this.state.seeData === true ? (<Paper elevation={3}>
+                <div style={{height:'310px',overflow:'scroll',textAlign:'left'}}>
+                    {this.state.results}
+                    </div>
+                    </Paper> ) : <span />}
+                
+                </Grid>
+                <Dialog
+        open={this.state.needsAccess}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={() => this.setState({needsAccess:false})}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{"Get access now"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            <h4>This is a premium feature </h4>
+            Are you a premium user? If yes please log it to MetaMask using the 
+            account you purchased our service. 
+            <Divider style={{width:'100%'}} /> <br />
+            Access costs just <span style={{fontWeight:'bold'}}> 0.25 ETH </span>and it's for life! <br />
+            <Button onClick={this.buyAccess} variant="contained" fullWidth color="primary"> {this.state.loading === false ? (<div>Buy access now</div>) : <CircularProgress style={{color:'white'}} /> }  </Button>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => this.setState({needsAccess:false})}  color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
                 </Grid>
 
             </div>

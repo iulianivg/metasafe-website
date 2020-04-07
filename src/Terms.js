@@ -29,7 +29,7 @@ export default class Terms extends React.Component {
                     <h2>Updated to 01/04/2020</h2>
                     <p>Greetings! MetaSafe is a client-side tool which allows users 
                         to analyse and generate safe mnemonics to open their Ethereum 
-                        account. Those are the Terms and Conditions that you should read carefully.
+                        account. Our tool can also be used to recover lost seed phrases. Those are the Terms and Conditions that you should read carefully.
                         They may also be referred to as <span style={{fontWeight:'bold'}}>"Terms of Service"</span>. They apply on the whole website available at metasafe.org and to your use of MetaSafe 
                         services.</p>
                     <h3>Introduction</h3>
@@ -51,7 +51,8 @@ export default class Terms extends React.Component {
                         </p>
                         <h3>Services Eligibility</h3>
                         <p>
-                            Our services allow you to created user wallets and analyse your own mnemonic. The 
+                            Our services allow you to create user wallets and analyse your own mnemonic. You may also use our 
+                            seed phrase recovery tool in case you forgot a word in your mnemonic phrase. The 
                             Services are offered and available only if the user is at least 16 years old and resident 
                             in a country where cryptocurrencies are not illegal. By using the Services, you agree and 
                             warrant to be at least 16 years of age and that you will abide by the conditions mentioned in
@@ -98,6 +99,12 @@ export default class Terms extends React.Component {
                                     for any illegal or unauthorized purpose and nor may you, in the use of the Service, violate laws in 
                                     your jurisdiction (including and not limited to intellectual property laws).
                                 </p>
+                                <h3>Mnemonic Recovery Tool Usage </h3>
+                                <p>You will not use our tools for other than their intended purposes. You must not use our Recovery Seed Phrase tool for attempting hacking on 
+                                    other user's seed phrases. MetaSafe does not take any liability on any cybercriminal issues arising from how you use the tool. If you 
+                                    attempt hacking using our tool, we may decide to take you to court and remove your access without refunding. The tool is a premium 
+                                    feature meant to help those who really need it and it does not support hacking or other illegal activities. The fee of 0.25 ETHER paid for 
+                                    the tool is not-refundable.  </p>
                         </Grid>
                         </Grid>
                 </div>
