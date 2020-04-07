@@ -155,7 +155,7 @@ function ResponsiveDrawer(props) {
         ))} */}
       </List>
       <Divider />
-      <List>
+      {/* <List>
       <Link to="/recover" style={{textDecoration:'none',color:'inherit'}}>
             <ListItem button>
             <ListItemIcon>
@@ -164,7 +164,7 @@ function ResponsiveDrawer(props) {
             <ListItemText primary="Recover Your Seed Phrase" />
             </ListItem>
           </Link>
-      </List>
+      </List> */}
     </div>
   );
 
@@ -240,9 +240,9 @@ function ResponsiveDrawer(props) {
           <Route exact path="/donate">
               <Donate />
           </Route>
-          <Route exact path="/recover">
+          {/* <Route exact path="/recover">
             <RecoverSeed />
-          </Route>
+          </Route> */}
         </Switch>
             {/* {tabOpen === 1 ?         <MnemonicMaker /> : tabOpen=== 2 ? <Text /> :  tabOpen === 3 ? <WHOpage /> : <span />} */}
 
