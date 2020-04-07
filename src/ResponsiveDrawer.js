@@ -19,12 +19,14 @@ import ListAltTwoToneIcon from '@material-ui/icons/ListAltTwoTone';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import CachedIcon from '@material-ui/icons/Cached';
 import Text from './Text';
 import MnemonicMaker from './MnemonicMaker';
 import WHOpage from './WHO.js';
 import Terms from './Terms.js';
 import Donate from './Donate.js';
 import Documentation from './Documentation.js';
+import RecoverSeed from './RecoverSeed.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -153,7 +155,16 @@ function ResponsiveDrawer(props) {
         ))} */}
       </List>
       <Divider />
-      
+      <List>
+      <Link to="/recover" style={{textDecoration:'none',color:'inherit'}}>
+            <ListItem button>
+            <ListItemIcon>
+            <CachedIcon htmlColor="#115293" />
+            </ListItemIcon>
+            <ListItemText primary="Recover Your Seed Phrase" />
+            </ListItem>
+          </Link>
+      </List>
     </div>
   );
 
@@ -228,6 +239,9 @@ function ResponsiveDrawer(props) {
           </Route>
           <Route exact path="/donate">
               <Donate />
+          </Route>
+          <Route exact path="/recover">
+            <RecoverSeed />
           </Route>
         </Switch>
             {/* {tabOpen === 1 ?         <MnemonicMaker /> : tabOpen=== 2 ? <Text /> :  tabOpen === 3 ? <WHOpage /> : <span />} */}
