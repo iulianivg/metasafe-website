@@ -342,7 +342,7 @@ generateMnemonic24 = async() => {
           
       return (
           <div>
-                <h2>Ethereum Mnemonic Analyser</h2>
+                <h2>Mnemonic Analyser</h2>
                 
         <Grid container spacing={3}>
         {/* <Grid item xs={12} sm={3}>
