@@ -21,7 +21,9 @@ import SecurityIcon from '@material-ui/icons/Security';
 
 
 export default class Header extends React.Component {
-
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
 
     
     render(){
