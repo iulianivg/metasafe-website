@@ -93,7 +93,7 @@ function ResponsiveDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <Link to="/" style={{textDecoration:'none',color:'inherit'}}>
+        <Link to="/try" style={{textDecoration:'none',color:'inherit'}}>
         {/* <ListItem  button onClick={() => changeTab(1)}> */}
           <ListItem  button >
               <ListItemIcon>
@@ -232,7 +232,7 @@ function ResponsiveDrawer(props) {
       <main className={classes.content}>
          <div className={classes.toolbar} />
          <Switch>
-          <Route exact path="/">
+          <Route exact path="/try">
             <MnemonicMaker />
           </Route>
           <Route exact path="/analysis">

@@ -90,43 +90,7 @@ export default class MnemonicMaker extends React.Component {
       return (
           <div style={{width:'100%'}}>
           <Grid container spacing={3}>
-                    <Grid item xs={3}></Grid>
-                    <Grid item xs={12} md={6}>
-                      <a href="/results" style={{textDecoration:'none'}}>
-                    <Alert variant="filled" severity="info">
-        We used AI to  analyze over 100 MILLION user seed phrases and 19.6% are constantly coming out as vulnerable based on our criteria. 
-                 </Alert>
-                 </a>
-                        <h4>
-                            Don't lose your funds. Get your <span style={{border:'1px solid black',textTransform:'none'}}>MetaSafe</span> mnemonic now.
-                        </h4>
-                    </Grid>
-                    <Divider style={{width:'100%'}}/>
-              <br />
-                  <Grid xs={12} style={{backgroundColor:'#f50057',color:'white'}} >
-                    <h1>Features</h1>
-                  </Grid>
-                  <Grid xs={12} md={4} style={{backgroundColor:'#f50057',color:'white'}} >
-                  <RepeatIcon fontSize="large" />
-                    <h3>No Word Repetition</h3>
-                    <p>Seed phrases with repeating words are exponentially easier to brute-force.</p>
-                    <br />
-                  </Grid>
-                  <Grid xs={12} md={4} style={{backgroundColor:'#f50057',color:'white'}} >
-                    <SortByAlphaIcon fontSize="large" />
-                    <h3>No 3+ Consecutive Letters</h3>
-                    <p>Mnemonics with words that start with the same letter make it easier for hackers.</p>
-                    <br />
 
-                  </Grid><Grid xs={12} md={4} style={{backgroundColor:'#f50057',color:'white'}} >
-                    <LowPriorityIcon fontSize="large" />
-                    <h3>No 4+ Words Coming From First 10% of All Seed Words</h3>
-                    <p>There are 2048 words from which seed phrase is generated. The first 10% are the most 
-                      brute-forced.
-                    </p>
-                  </Grid>
-
-                    <Grid item xs = {3} />
                     {/* <Grid item xs = {6} >
                     <Button
         style={{width:'100%',marginTop:'5px', marginBottom:'10px'}}
@@ -140,7 +104,6 @@ export default class MnemonicMaker extends React.Component {
       {this.state.goodMnemonic !== '' ? this.state.goodMnemonic : <span />}
                     </Grid> */}
         
-        <Divider style={{width:'100%'}}/>
         <Grid item md={2} lg={2} />
         <Grid item xs={12} md={4} lg={4} >
         <Card>
