@@ -92,10 +92,11 @@ export default class MnemonicMaker extends React.Component {
           <Grid container spacing={3}>
                     <Grid item xs={3}></Grid>
                     <Grid item xs={12} md={6}>
+                      <a href="/results" style={{textDecoration:'none'}}>
                     <Alert variant="filled" severity="info">
         We used AI to  analyze over 100 MILLION user seed phrases and 19.6% are constantly coming out as vulnerable based on our criteria. 
                  </Alert>
-
+                 </a>
                         <h4>
                             Don't lose your funds. Get your <span style={{border:'1px solid black',textTransform:'none'}}>MetaSafe</span> mnemonic now.
                         </h4>

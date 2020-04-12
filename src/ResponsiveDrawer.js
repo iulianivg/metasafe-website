@@ -19,9 +19,10 @@ import ListAltTwoToneIcon from '@material-ui/icons/ListAltTwoTone';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import CachedIcon from '@material-ui/icons/Cached';
+import DescriptionIcon from '@material-ui/icons/Description';
 import Text from './Text';
 import MnemonicMaker from './MnemonicMaker';
+import Results from './Results';
 import WHOpage from './WHO.js';
 import Terms from './Terms.js';
 import Donate from './Donate.js';
@@ -127,6 +128,15 @@ function ResponsiveDrawer(props) {
           <ListItemText primary="Documentation" />
           </ListItem></Link>
 
+
+          <Link to="/results" style={{textDecoration:'none',color:'inherit'}}>
+            <ListItem button>
+            <ListItemIcon>
+              <DescriptionIcon htmlColor="#115293" />
+            </ListItemIcon>
+            <ListItemText primary="Results" />
+            </ListItem>
+          </Link>
           <Link to="/donate" style={{textDecoration:'none',color:'inherit'}}>
           
           <ListItem button>
@@ -239,6 +249,9 @@ function ResponsiveDrawer(props) {
           </Route>
           <Route exact path="/donate">
               <Donate />
+          </Route>
+          <Route exact path="/results">
+            <Results />
           </Route>
           {/* <Route exact path="/recover">
             <RecoverSeed />

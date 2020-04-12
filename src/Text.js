@@ -343,7 +343,7 @@ generateMnemonic24 = async() => {
       return (
           <div>
                 <h2>Mnemonic Analyser</h2>
-                
+                <p style={{color:'grey'}}>This tool is client side and will not send your mnemonic data to our AI or servers</p>
         <Grid container spacing={3}>
         {/* <Grid item xs={12} sm={3}>
         <p>Analyse how secure your mnemonic is. </p>
