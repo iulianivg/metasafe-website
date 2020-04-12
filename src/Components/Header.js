@@ -87,7 +87,7 @@ export default class Header extends React.Component {
             </div>
             <Grid item xs={12} md={12}>
             <div>
-                <img src={Laptop} style={{maxWidth:'1000px',backgroundSize:'100% 100%',height:'70%',width:'100%',textAlign:'center', position:'relative',zIndex:'100'}} />
+                <img src={Laptop} style={{maxWidth:'1100px',backgroundSize:'100% 100%',height:'70%',width:'100%',textAlign:'center', position:'relative',zIndex:'100'}} />
              </div>
              </Grid>
 
