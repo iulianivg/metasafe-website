@@ -28,6 +28,7 @@ import Terms from './Terms.js';
 import Donate from './Donate.js';
 import Documentation from './Documentation.js';
 import RecoverSeed from './RecoverSeed.js';
+import Disclaimer from './Disclaimer';
 import {
   BrowserRouter as Router,
   Switch,
@@ -91,6 +92,9 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
+      <Link to="/disclaimer" style={{textDecoration:'none',color:'grey'}}>
+          Disclaimer
+      </Link>
       <Divider />
       <List>
         <Link to="/try" style={{textDecoration:'none',color:'inherit'}}>
@@ -249,6 +253,9 @@ function ResponsiveDrawer(props) {
           </Route>
           <Route exact path="/donate">
               <Donate />
+          </Route>
+          <Route exact path="/disclaimer">
+              <Disclaimer />
           </Route>
           <Route exact path="/results">
             <Results />
