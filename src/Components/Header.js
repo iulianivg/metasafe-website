@@ -17,11 +17,13 @@ import LowPriorityIcon from '@material-ui/icons/LowPriority';
 import Blockchain from '../icons/blockchain2.png';
 import Paper from '@material-ui/core/Paper';
 import SecurityIcon from '@material-ui/icons/Security';
-
+import LED from '../icons/led.jpeg';
 
 
 export default class Header extends React.Component {
-
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
 
     
     render(){
@@ -76,7 +78,7 @@ export default class Header extends React.Component {
                by our AI.
             </Typography>
             </Container>
-            <div style={{width:'100%',position:'absolute',height:'100%',backgroundImage:`url('https://images.pexels.com/photos/158826/structure-light-led-movement-158826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'`,bottom:'100px',transform:'skewY(-5deg)'}}>
+            <div style={{width:'100%',position:'absolute',height:'100%',backgroundImage:`url(${LED})`,bottom:'100px',transform:'skewY(-5deg)'}}>
 
             <div style={{background:'linear-gradient(150deg, #e33371 15%,#dc004e 70%, #9a0036 94%)',height:'100%',opacity:'0.85'}}>
            
@@ -85,7 +87,7 @@ export default class Header extends React.Component {
             </div>
             <Grid item xs={12} md={12}>
             <div>
-                <img src={Laptop} style={{maxWidth:'1000px',backgroundSize:'100% 100%',height:'70%',width:'100%',textAlign:'center', position:'relative',zIndex:'100'}} />
+                <img src={Laptop} style={{maxWidth:'1100px',backgroundSize:'100% 100%',height:'70%',width:'100%',textAlign:'center', position:'relative',zIndex:'100'}} />
              </div>
              </Grid>
 
