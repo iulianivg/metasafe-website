@@ -22,6 +22,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide'
+import Alert from '@material-ui/lab/Alert';
+
 
 import recovery from './Smart Contract/recovery';
 import words from './words';
@@ -266,105 +268,20 @@ window.ethereum.enable();
                   </Grid><Grid xs={12} md={4} style={{color:'white'}} >
                     <SecurityIcon fontSize="large" htmlColor="red" />
                     <h3>Secure</h3>
-                    <p>Mnemonics are never sent to our servers.
+                    <p>We don't collect or share your data
                     </p>
                   </Grid>
 
-                    <Grid item xs = {3} />
-                   
                 </Grid>
-                <br />
-                <Divider style={{width:'100'}} />
-            <br />
-            <Grid container spacing={3} >
-                <Grid item xs ={12} md={2}>
+                <br /> <br /> 
+                <Alert variant="filled" severity="warning">
+        For security reasons this feature cannot be used on this website. You must download our MetaSafe Desktop tool
+      </Alert>
+      <ul style={{textAlign:'left'}}>
+          <li>MetaSafe for Windows:        <a href={`https://drive.google.com/uc?export=download&confirm=P801&id=1rdncCeXnnr8jkgyyc7Z8wuJILqgduiR5`}>Download (103 MB)</a></li>
+          <li>MetaSafe for MacOS:   Coming Soon </li>
+      </ul>
 
-                </Grid>
-                <Grid item xs={12} md={6}>
-
-        <TextField required id="standard-basic" disabled={this.state.word1Disabled} label="Word 1" value={this.state.word1} onChange={(event) => this.setState({word1:event.target.value.trim()})} />
-        <TextField required id="standard-basic" disabled={this.state.word2Disabled} label="Word 2" value={this.state.word2} onChange={(event) => this.setState({word2:event.target.value.trim()})} />
-        <TextField required id="standard-basic" disabled={this.state.word3Disabled} label="Word 3" value={this.state.word3} onChange={(event) => this.setState({word3:event.target.value.trim()})}/>
-        <TextField required id="standard-basic" disabled={this.state.word4Disabled} label="Word 4" value={this.state.word4} onChange={(event) => this.setState({word4:event.target.value.trim()})}/>
-        <TextField required id="standard-basic" disabled={this.state.word5Disabled} label="Word 5" value={this.state.word5} onChange={(event) => this.setState({word5:event.target.value.trim()})} />
-        <TextField required id="standard-basic" disabled={this.state.word6Disabled} label="Word 6" value={this.state.word6} onChange={(event) => this.setState({word6:event.target.value.trim()})}/>
-        <TextField required id="standard-basic" disabled={this.state.word7Disabled} label="Word 7" value={this.state.word7} onChange={(event) => this.setState({word7:event.target.value.trim()})}/>
-        <TextField required id="standard-basic" disabled={this.state.word8Disabled} label="Word 8" value={this.state.word8} onChange={(event) => this.setState({word8:event.target.value.trim()})}/>
-        <TextField required id="standard-basic" disabled={this.state.word9Disabled} label="Word 9" value={this.state.word9} onChange={(event) => this.setState({word9:event.target.value.trim()})}/>
-        <TextField required id="standard-basic" disabled={this.state.word10Disabled} label="Word 10" value={this.state.word10} onChange={(event) => this.setState({word10:event.target.value.trim()})} />
-        <TextField required id="standard-basic" disabled={this.state.word11Disabled} label="Word 11" value={this.state.word11} onChange={(event) => this.setState({word11:event.target.value.trim()})} />
-        <TextField required id="standard-basic" disabled={this.state.word12Disabled} label="Word 12" value={this.state.word12} onChange={(event) => this.setState({word12:event.target.value.trim()})} />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                <FormControl fullWidth required>
-    <InputLabel htmlFor="age-native-required"> Word # I don't remember</InputLabel>
-        <Select
-          native
-          value={this.state.wordIndex}
-          name="Word"
-          onChange={handleWord}
-          inputProps={{
-            id: 'Terms-native-required',
-          }}
-        >
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-          <option value={6}>6</option>
-          <option value={7}>7</option>
-          <option value={8}>8</option>
-          <option value={9}>9</option>
-          <option value={10}>10</option>
-          <option value={11}>11</option>
-          <option value={12}>12</option>
-        </Select>
-        <FormHelperText>Required</FormHelperText>
-        
-      </FormControl>
-                {/* <Button onClick={this.forceWord} disabled={this.state.hasStarted} fullWidth variant="contained" color="secondary">Recover Seed Phrase</Button> */}
-                <Button disabled fullWidth variant="contained" color="secondary">Recover Seed Phrase (coming soon)</Button>
-                <a style={{color:'grey',textDecoration:'none'}} href="/terms">Terms & Conditions apply</a> 
-
-                </Grid>
-                <br /> 
-                <Divider style={{width:'100%'}} />
-                <Grid item xs={12} md={2} />
-                <Grid item xs={12} md ={8}>
-                {this.state.seeData === true ? (<Paper elevation={3}>
-                <div style={{height:'310px',overflow:'scroll',textAlign:'left'}}>
-                    {this.state.results}
-                    </div>
-                    </Paper> ) : <span />}
-                
-                </Grid>
-                <Dialog
-        open={this.state.needsAccess}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={() => this.setState({needsAccess:false})}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="alert-dialog-slide-title">{"Get access now"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <h4>This is a premium feature </h4>
-            Are you a premium user? If yes please log it to MetaMask using the 
-            account you purchased our service. 
-            <Divider style={{width:'100%'}} /> <br />
-            Access costs just <span style={{fontWeight:'bold'}}> 0.25 ETH </span>and it's for life! <br />
-            <Button onClick={this.buyAccess} variant="contained" fullWidth color="primary"> {this.state.loading === false ? (<div>Buy access now</div>) : <CircularProgress style={{color:'white'}} /> }  </Button>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => this.setState({needsAccess:false})}  color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-                </Grid>
 
             </div>
 

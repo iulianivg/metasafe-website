@@ -21,7 +21,8 @@ export default class Disclaimer extends React.Component {
                 of security.</p>
                 <div style={{textAlign:'left'}}>
                 <ul>
-                    <li>Use the desktop <span style={{border:'1px solid black',textTransform:'none'}}>MetaSafe</span> application rather than the online website https://metasafe.org</li>
+                    <li>Download our offline tool from <a href="/recover">here</a></li>
+                    <li>Always use the desktop <span style={{border:'1px solid black',textTransform:'none'}}>MetaSafe</span> application rather than the online website https://metasafe.org</li>
                     <li>When using the desktop application, turn off your internet and then proceed generating or analysing your seed phrase </li>
                     <li>Write your seed phrase in a file and encrypt it</li>
                     <li>Alternatively write your seed phrase on a paper wallet and store it in a safe</li>

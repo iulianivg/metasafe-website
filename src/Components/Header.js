@@ -46,9 +46,9 @@ export default class Header extends React.Component {
           Try Now
           </Button>
           </a>
-          <a href="/try" style={{textDecoration:'none',color:'inherit'}}>
+          <a href="/recover" style={{textDecoration:'none',color:'inherit'}}>
           <Button color="inherit">
-          FAQ
+          Seed Phrase Recovery
           </Button>
           </a>
           <a href="/documentation" style={{textDecoration:'none',color:'inherit'}}>

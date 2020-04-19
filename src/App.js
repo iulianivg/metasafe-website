@@ -43,6 +43,12 @@ function App() {
           <Route exact path="/donate">
           <ResponsiveDrawer />
           </Route>
+          <Route exact path="/recover">
+            <ResponsiveDrawer />
+          </Route>
+          <Route exact path="/disclaimer">
+          <ResponsiveDrawer />
+          </Route>
      </Switch>
      </Router>
     </div>

@@ -19,6 +19,7 @@ import ListAltTwoToneIcon from '@material-ui/icons/ListAltTwoTone';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import CachedIcon from '@material-ui/icons/Cached';
 import DescriptionIcon from '@material-ui/icons/Description';
 import Text from './Text';
 import MnemonicMaker from './MnemonicMaker';
@@ -29,6 +30,7 @@ import Donate from './Donate.js';
 import Documentation from './Documentation.js';
 import RecoverSeed from './RecoverSeed.js';
 import Disclaimer from './Disclaimer';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -151,25 +153,9 @@ function ResponsiveDrawer(props) {
           </ListItem></Link>
 
           
-          {/* <ListItem button onClick={() => changeTab(4)}>
-              <ListItemIcon>
-                  <InfoIcon htmlColor="#115293" />
-              </ListItemIcon>
-              <ListItemText primary="About Us" />
-          </ListItem> */}
-{/* 
-        {['Home', 'Register/Sign in', 'Send email', 'About Us'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-                {index === 0 ? <HomeIcon/> : index === 1 ? <PersonIcon /> : index === 3 ? <InfoIcon /> : 
-                <MailIcon />}
-                </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))} */}
       </List>
       <Divider />
-      {/* <List>
+      <List>
       <Link to="/recover" style={{textDecoration:'none',color:'inherit'}}>
             <ListItem button>
             <ListItemIcon>
@@ -178,7 +164,7 @@ function ResponsiveDrawer(props) {
             <ListItemText primary="Recover Your Seed Phrase" />
             </ListItem>
           </Link>
-      </List> */}
+      </List>
     </div>
   );
 
@@ -260,9 +246,9 @@ function ResponsiveDrawer(props) {
           <Route exact path="/results">
             <Results />
           </Route>
-          {/* <Route exact path="/recover">
+          <Route exact path="/recover">
             <RecoverSeed />
-          </Route> */}
+          </Route>
         </Switch>
             {/* {tabOpen === 1 ?         <MnemonicMaker /> : tabOpen=== 2 ? <Text /> :  tabOpen === 3 ? <WHOpage /> : <span />} */}
 
