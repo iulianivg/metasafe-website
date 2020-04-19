@@ -278,7 +278,7 @@ window.ethereum.enable();
         For security reasons this feature cannot be used on this website. You must download our MetaSafe Desktop tool
       </Alert>
       <ul style={{textAlign:'left'}}>
-          <li>MetaSafe for Windows:        <a href={`https://drive.google.com/uc?export=download&confirm=P801&id=1rdncCeXnnr8jkgyyc7Z8wuJILqgduiR5`}>Download (103 MB)</a></li>
+          <li>MetaSafe for Windows:        <a href={`https://www.dropbox.com/s/tduaa43gjhaamu2/MetaSafe-windows.rar?dl=1`}>Download (103 MB)</a></li>
           <li>MetaSafe for MacOS:   Coming Soon </li>
       </ul>
 
