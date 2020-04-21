@@ -11,10 +11,10 @@ import Button from '@material-ui/core/Button';
 import Laptop from '../icons/laptop_image.png';
 import Clientside from '../icons/client_side.png';
 import Video from '../icons/video.mp4';
-import RepeatIcon from '@material-ui/icons/Repeat';
-import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
-import LowPriorityIcon from '@material-ui/icons/LowPriority';
-import Blockchain from '../icons/blockchain2.png';
+import SpeedIcon from '@material-ui/icons/Speed';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import EvStationIcon from '@material-ui/icons/EvStation';
+import Blockchain from '../icons/moreCrypto.png';
 import Paper from '@material-ui/core/Paper';
 import SecurityIcon from '@material-ui/icons/Security';
 import LED from '../icons/led.jpeg';
@@ -71,11 +71,10 @@ export default class Header extends React.Component {
       <br /> <br /> <br /> <br />
       <Container maxWidth="md" style={{zIndex:'1',position:'relative'}}>
             <Typography component="h1" variant="h2" align="center" style={{color:'white'}} gutterBottom>
-              Secure Seed Phrases
+              Seed Phrase Recovery
             </Typography>
             <Typography variant="h5" align="center" style={{color:'white'}} paragraph>
-              We analyzed over <span style={{fontWeight:'bold'}}>100,000,000</span> seed phrases and  19,632,106 or 1 in 5 were detected as <span style={{color:'black'}}>insecure </span> 
-               by our AI.
+              A service for those who forgot their seed phrase
             </Typography>
             </Container>
             <div style={{width:'100%',position:'absolute',height:'100%',backgroundImage:`url(${LED})`,bottom:'100px',transform:'skewY(-5deg)'}}>
@@ -92,7 +91,7 @@ export default class Header extends React.Component {
              </Grid>
 
 
-             <Container maxWidth="md" style={{zInde:'1',position:'relative'}}>
+                                     <Container maxWidth="md" style={{zInde:'1',position:'relative'}}>
              <br />
              <Grid  container
   direction="row"
@@ -100,23 +99,23 @@ export default class Header extends React.Component {
   alignItems="center"  >
              <Grid item xs={12} md={6}>
              <Typography variant="h6" color="textPrimary" gutterBottom>
-        Analyzer 
+        Multiple Cryptocurrencies Supported
       </Typography>          
       <Typography variant="body1" color="textSecondary" gutterBottom>
-        Our client-side analyzer is a free tool that does not store 
-        your data and lets you know how strong your mnemonic is. 
-      </Typography>  
-      <a href="/analysis" style={{textDecoration:'none',color:'inherit'}}>
+        Recover your seed phrase for most cryptocurrencies and unlock 
+        your lost funds. 
+      </Typography> 
+      <a href="/who" style={{textDecoration:'none',color:'inherit'}}>
 
       <Button variant="contained" color="secondary">
-      Analyze
+      Search Compliance
       </Button>
-      </a>
       <br /> <br />
+      </a> 
              </Grid>
 
              <Grid item xs={12} md={6}>
-            <img src={Clientside} width="400px" style={{boxShadow:'0 20px 60px -10px rgba(0,0,0,.2)',borderRadius:'11px'}} />
+            <img src={Blockchain} width="400px" style={{boxShadow:'0 20px 60px -10px rgba(0,0,0,.2)',borderRadius:'11px'}} />
              </Grid>
              </Grid>
              <br /> <br />
@@ -135,12 +134,12 @@ export default class Header extends React.Component {
              </Grid>
              <Grid item xs={12} md={6}>
              <Typography variant="h6" color="textPrimary" gutterBottom>
-        Security
+        Confidential
       </Typography>     
    
       <Typography variant="body1" color="textSecondary" gutterBottom>
-        Whether you are a normal user or company, by implementing MetaSafe you may exponentially 
-        improve the security of the seed phrase and therefore keep your funds safer.
+        We put your safety in first place. Our tool can be used offline without 
+        an internet connection, far away from hackers. 
       </Typography>  
         
       <a href="/try" style={{textDecoration:'none',color:'inherit'}}>
@@ -161,8 +160,8 @@ export default class Header extends React.Component {
              <br /> <br />
              </Container>
             </div>
-
-                         <Container maxWidth="md" style={{zInde:'1',position:'relative'}}>
+             
+             <Container maxWidth="md" style={{zInde:'1',position:'relative'}}>
              <br />
              <Grid  container
   direction="row"
@@ -170,23 +169,24 @@ export default class Header extends React.Component {
   alignItems="center"  >
              <Grid item xs={12} md={6}>
              <Typography variant="h6" color="textPrimary" gutterBottom>
-        Compliant 
+        Analysis 
       </Typography>          
       <Typography variant="body1" color="textSecondary" gutterBottom>
-        Every company that uses MetaSafe protocol will have their compliance 
-        stored on the blockchain and receive a badge with their ID.
-      </Typography> 
-      <a href="/who" style={{textDecoration:'none',color:'inherit'}}>
+        Our tool can show you in depth analysis such as the last seed phrase 
+        attempt before finding your funds. This may give you an idea how 
+        close you are to finding your seed phrase. 
+      </Typography>  
+      <a href="/analysis" style={{textDecoration:'none',color:'inherit'}}>
 
       <Button variant="contained" color="secondary">
-      Search Compliance
+      Analyze
       </Button>
+      </a>
       <br /> <br />
-      </a> 
              </Grid>
 
              <Grid item xs={12} md={6}>
-            <img src={Blockchain} width="400px" style={{boxShadow:'0 20px 60px -10px rgba(0,0,0,.2)',borderRadius:'11px'}} />
+            <img src={Clientside} width="400px" style={{boxShadow:'0 20px 60px -10px rgba(0,0,0,.2)',borderRadius:'11px'}} />
              </Grid>
              </Grid>
              <br /> <br />
@@ -200,28 +200,29 @@ export default class Header extends React.Component {
                     <h1>Features</h1>
                   </Grid>
                   <Grid xs={12} md={4} style={{backgroundColor:'#f50057',color:'white'}} >
-                  <RepeatIcon fontSize="large" />
-                    <h3>No Word Repetition</h3>
-                    <p>Seed phrases with repeating words are exponentially easier to brute-force.</p>
+                  <SpeedIcon fontSize="large" />
+                    <h3>FAST</h3>
+                    <p>Up to 100 seed phrases per second</p>
                     <br />
                   </Grid>
                   <Grid xs={12} md={4} style={{backgroundColor:'#f50057',color:'white'}} >
-                    <SortByAlphaIcon fontSize="large" />
-                    <h3>No 3+ Consecutive Letters</h3>
-                    <p>Mnemonics with words that start with the same letter make it easier for hackers.</p>
+                  <ViewModuleIcon fontSize="large" />
+                    <h3>Real Time Blockchain</h3>
+                    <p>Data is checked at the latest block of the blockchain.</p>
                     <br />
 
                   </Grid><Grid xs={12} md={4} style={{backgroundColor:'#f50057',color:'white'}} >
-                    <LowPriorityIcon fontSize="large" />
-                    <h3>No 4+ Words Coming From First 10% of All Seed Words</h3>
-                    <p>There are 2048 words from which seed phrase is generated. The first 10% are the most 
-                      brute-forced.
+                    <EvStationIcon fontSize="large" />
+                    <h3>Powerful</h3>
+                    <p>Check up to 4,194,304 seed phrase combinations in one go 
                     </p>
                   </Grid>
             </Grid>
             <br /> <br />
 
             </Container>
+
+            
 
             </div>
 
@@ -230,11 +231,11 @@ export default class Header extends React.Component {
             <Container maxWidth="md">
             <Paper elevation={3} style={{height:'210px'}}>
             <Typography variant="h6" gutterBottom style={{paddingTop:'20px'}}>
-        Level Up Your Seed Phrase Now!
+        Rediscover Your Seed Phrase Now!
       </Typography>
       <Typography variant="body1" color="textSecondary" gutterBottom style={{paddingLeft:'50px',paddingRight:'50px'}} > 
-        Seed phrases are very practical to use. Whether you are a dAPP user, an exchange, a wallet generator service or 
-        agency, we can help you to generate safer seed phrases. 
+        Seed phrases are very practical to use. Whether you are a dAPP user, an exchange, or 
+        agency, we can help you to recover your seed phrase. 
       </Typography>  
       <a href="/try" style={{textDecoration:'none',color:'inherit'}}>
 
