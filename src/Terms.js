@@ -28,10 +28,9 @@ export default class Terms extends React.Component {
                     <h1>Terms and Conditions</h1>
                     <h2>Updated to 01/04/2020</h2>
                     <p>Greetings! MetaSafe is a client-side tool which allows users 
-                        to analyse and generate safe mnemonics to open their Ethereum 
-                        account. Our tool can also be used to recover lost seed phrases. Those are the Terms and Conditions that you should read carefully.
+                        to analyse and recover lost words of their seed phrase. Those are the Terms and Conditions that you should read carefully.
                         They may also be referred to as <span style={{fontWeight:'bold'}}>"Terms of Service"</span>. They apply on the whole website available at metasafe.org and to your use of MetaSafe 
-                        services.</p>
+                        services including our offline MetaSafe tool.</p>
                     <h3>Introduction</h3>
                     <p>
                     The Terms of Service set forth the legally binding terms for your use of the Services. By using the Services, you agree to be bound by the Terms of Service, any additional posted guidelines or rules applicable to specific services and features, 
@@ -51,8 +50,7 @@ export default class Terms extends React.Component {
                         </p>
                         <h3>Services Eligibility</h3>
                         <p>
-                            Our services allow you to create user wallets and analyse your own mnemonic. You may also use our 
-                            seed phrase recovery tool in case you forgot a word in your mnemonic phrase. The 
+                            Our services allow you to recover lost words of your seed phrase and access your locked funds. The 
                             Services are offered and available only if the user is at least 16 years old and resident 
                             in a country where cryptocurrencies are not illegal. By using the Services, you agree and 
                             warrant to be at least 16 years of age and that you will abide by the conditions mentioned in
@@ -61,17 +59,18 @@ export default class Terms extends React.Component {
                             <p>
                             The site is client-side and we will never hold or store your mnemonic on 
                             our database. You will be able to interact with the Site using the interface 
-                            which may be directly interacting with other blockchains. 
+                            which may be directly interacting with other blockchains. The site is not a guarantee of security 
+                            and it is recommended to download our MetaSafe desktop tool.
                             </p>
-                            <p>When you access certain features of the Services, you will be able to analyse 
-                                your Ethereum mnemonic and the client will apply business logic to determine 
-                                how safe your mnemonic is. We do not store data nor we will track you when such
+                            <p>When you access certain features of the Services, you will be able to set your words and the client will attempt to 
+                                identify the funds behind every possible seed phrase. We do not store data nor we will track you when such
                                 operations happen. MetaSafe does not collect or hold your mnemonic information, 
-                                and the operations are entirely client side. 
+                                and the operations are entirely client side. For better security, you should download our tool on your desktop and keep 
+                                the seed phrase analysis offline. 
                             </p>
-                            <p>If you are an Enterprise Client, you may use our npm package to generate or analyze your user mnemonics. You may opt in to create mnemonics front-end or back-end 
-                                depending on your needs. You must let us know if you're using MetaSafe Service such that we can provide you with a badge. Using MetaSafe as an enterprise without our 
-                                authorization is a breach of agreement. Fees apply on the creation of your badge and storage of your Service usage on the blockchain. Shall you not respect this 
+                            <p>If you are an Enterprise Client, you may use our tool to recover your seed phrase. 
+                                 You must let us know if you're using MetaSafe Service such that we can offer you better advice on how to recover you seed phrase. Using MetaSafe as an enterprise without our 
+                                authorization is a breach of agreement. Shall you not respect this 
                                 condition you agree that MetaSafe will take you to court in United Kingdom in order to resolve our dispute. 
                             </p>
                             <p>
@@ -99,12 +98,53 @@ export default class Terms extends React.Component {
                                     for any illegal or unauthorized purpose and nor may you, in the use of the Service, violate laws in 
                                     your jurisdiction (including and not limited to intellectual property laws).
                                 </p>
-                                <h3>Mnemonic Recovery Tool Usage </h3>
+                                <h3> Recovery Tool Usage </h3>
                                 <p>You will not use our tools for other than their intended purposes. You must not use our Recovery Seed Phrase tool for attempting hacking on 
                                     other user's seed phrases. MetaSafe does not take any liability on any cybercriminal issues arising from how you use the tool. If you 
                                     attempt hacking using our tool, we may decide to take you to court and remove your access without refunding. The tool is a premium 
-                                    feature meant to help those who really need it and it does not support hacking or other illegal activities. The fee of 0.25 ETHER paid for 
-                                    the tool is not-refundable.  </p>
+                                    feature meant to help those who really need it and it does not support hacking or other illegal activities.  </p>
+                                <h3>Fees </h3> 
+                                <p> 
+                                    We may decide to apply fees on premium services offered by MetaSafe. We reserve the right to modify the costs of access at any time and if you 
+                                    paid the fee, you agree that you will never share our tool with others. If we notice any suspicious activity we reserve the right to revoke your 
+                                    premium access at any time. You agree that MetaSafe may require some proof of usage, proof of address or any other information that we retain 
+                                    useful to validate the usage of our tool.
+                                </p>
+                                <h3>Guarantee of Security </h3> 
+                                <p> 
+                                    Under no circumstances does MetaSafe guarantee your full security from cyber-crimes. You must apply adequate measures and always use our tool 
+                                    in offline mode. You will have downloaded a blockchain node of your cryptocurrency and, after logging in (online operation required), you 
+                                    should disconnect from the internet. This will allow you to stay safe from any backdoors installed on your computer and therefore protect 
+                                    your rediscovered seed phrase. 
+                                    </p>
+                                <hr /> 
+                                <h2>Privacy Policy </h2>
+                                <h3>Introduction </h3> 
+                              <p>  As a MetaSafe user ("you") may use various services offered by us as stated in the Terms and Conditions. 
+                                When you use our services, we will not collect data that is related to your seed phrase nor what is being analyzed. 
+                                However we will collect personal data when you create an account. Such data include your email address and your full name.
+                                Such operation is required to avoid abuse of our services.
+                                This privacy policy is effective as of April 2020 and may occasionally be modified. You should revise it periodically 
+                                to understand how such modifications affect your rights and obligations related to protection and processing of your data.
+                                </p>
+                                <h3> How we protect your data </h3>
+                                <p>We collect data just enough to operate and not in an excessive manneer. MetaSafe is commited 
+                                    to keeping your data up to date and securely stored. Your data will not be processed for a period longer than 
+                                    it is necessary for the purpose for which data is processed. Technical measures in accordance with great industry practice 
+                                    are applied to safeguard your information and ensure protect of personal data against accidental or unlwaful loss,
+                                    alteration, theft, unauthorised access or unauthorised use. </p>
+                                <h3>Whom we share your data with</h3>
+                                <p> 
+                                We may share your data with the following categories: 
+
+                                <ul>
+                                <li> Public authorities and law enforcement agencies where we are legally required to do so </li>
+                                   <li> Entities who help us develop our services (maintenance, marketing, development, etc.). They are 
+                                       allowed to process your information as reasonable necessary to perform their tasks. Please be aware 
+                                       that this data may only be analytics and it may not personally identify yourself.   </li>
+                                   
+                                    </ul>
+                                    </p>
                         </Grid>
                         </Grid>
                 </div>

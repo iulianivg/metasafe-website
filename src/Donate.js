@@ -1,8 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 export default class Donate extends React.Component {
 
@@ -25,9 +23,7 @@ export default class Donate extends React.Component {
             <Grid container spacing={2}>
             <Grid item xs={2} />
                 <Grid item xs={8}>
-                    <p>Our service is free and will support the re-creation of millions of wallets. We plan to 
-                        bring this service to other blockchains all <span style={{fontWeight:'bold'}}> for free</span>. 
-                        Just like other companies we have running costs. You can help us by donating </p>
+                    <p>Love MetaSafe? Donate <FavoriteIcon htmlColor="#ce0000"/>  </p>
                        
                        <h3>Bitcoin address </h3>
                        <p>bc1qek0qg937g46rxyzmcyj9qh05n8xm79y40nqalp</p>

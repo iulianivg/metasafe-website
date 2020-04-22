@@ -46,14 +46,14 @@ export default class Header extends React.Component {
           Try Now
           </Button>
           </a>
-          <a href="/recover" style={{textDecoration:'none',color:'inherit'}}>
+          <a href="/download" style={{textDecoration:'none',color:'inherit'}}>
           <Button color="inherit">
-          Seed Phrase Recovery
+          Download
           </Button>
           </a>
-          <a href="/documentation" style={{textDecoration:'none',color:'inherit'}}>
+          <a href="/donate" style={{textDecoration:'none',color:'inherit'}}>
           <Button color="inherit">
-          Documentation
+          Donate
           </Button>
           </a>
           </nav>
@@ -105,7 +105,7 @@ export default class Header extends React.Component {
         Recover your seed phrase for most cryptocurrencies and unlock 
         your lost funds. 
       </Typography> 
-      <a href="/who" style={{textDecoration:'none',color:'inherit'}}>
+      <a href="/try" style={{textDecoration:'none',color:'inherit'}}>
 
       <Button variant="contained" color="secondary">
       Try Now
@@ -171,7 +171,7 @@ export default class Header extends React.Component {
         attempt before finding your funds. This may give you an idea how 
         close you are to finding your seed phrase. 
       </Typography>  
-      <a href="/analysis" style={{textDecoration:'none',color:'inherit'}}>
+      <a href="/try" style={{textDecoration:'none',color:'inherit'}}>
 
       <Button variant="contained" color="secondary">
       Analyze

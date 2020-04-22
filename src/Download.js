@@ -1,7 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Windows from './icons/windows.png';
+import Typography from '@material-ui/core/Typography';
 
 export default class Download extends React.Component {
 
@@ -23,6 +22,9 @@ export default class Download extends React.Component {
             <Grid item xs={6}>
             <img src={require('./icons/mac.png')} width="25%" />
             <h4>Download for Mac OS</h4>
+            <Typography variant="subtitle" color="textSecondary" gutterBottom>
+        Coming soon
+      </Typography>
             </Grid>
             <Grid item xs={12}>
             <img src={require('./icons/linux.png')} width="15%" />

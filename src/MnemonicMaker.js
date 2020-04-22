@@ -218,8 +218,9 @@ export default class MnemonicMaker extends React.Component {
         
                 </CardContent>
                 <CardActions>
+                  <a href="/download" style={{textDecoration:'none',width:'100%'}}>
                 <Button fullWidth variant="contained" color="secondary">Download Now</Button>
-
+                </a>
                 </CardActions>
                                 <a style={{color:'grey',textDecoration:'none'}} href="/terms">Terms & Conditions apply</a> 
 
