@@ -23,6 +23,7 @@ import CachedIcon from '@material-ui/icons/Cached';
 import DescriptionIcon from '@material-ui/icons/Description';
 import Text from './Text';
 import MnemonicMaker from './MnemonicMaker';
+import Download from './Download.js';
 import Results from './Results';
 import WHOpage from './WHO.js';
 import Terms from './Terms.js';
@@ -30,6 +31,9 @@ import Donate from './Donate.js';
 import Documentation from './Documentation.js';
 import RecoverSeed from './RecoverSeed.js';
 import Disclaimer from './Disclaimer';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import Header from './Components/Header';
+
 
 import {
   BrowserRouter as Router,
@@ -99,7 +103,7 @@ function ResponsiveDrawer(props) {
       </Link>
       <Divider />
       <List>
-        <Link to="/try" style={{textDecoration:'none',color:'inherit'}}>
+        <a href="/" style={{textDecoration:'none',color:'inherit'}}>
         {/* <ListItem  button onClick={() => changeTab(1)}> */}
           <ListItem  button >
               <ListItemIcon>
@@ -107,40 +111,23 @@ function ResponsiveDrawer(props) {
               </ListItemIcon>
               <ListItemText primary="Home" />
           </ListItem>
-          </Link>
-          <Link to="/analysis" style={{textDecoration:'none',color:'inherit'}}>
+          </a>
+          <Link to="/try" style={{textDecoration:'none',color:'inherit'}}>
           <ListItem  button >
               <ListItemIcon>
-                  <ListAltTwoToneIcon htmlColor="#115293" />
+                  <CachedIcon htmlColor="#115293" />
               </ListItemIcon>
-              <ListItemText primary="Mnemonic Analyzer" />
-          </ListItem>
-          </Link>
-          <Link to="/who" style={{textDecoration:'none',color:'inherit'}} >
-          <ListItem  button >
-              <ListItemIcon>
-                  <FindInPageIcon htmlColor="#115293" />
-              </ListItemIcon>
-              <ListItemText primary="MetaSafe.WHO" />
+              <ListItemText primary="Seed Phrase Recovery" />
           </ListItem>
           </Link>
 
-          <Link to="/documentation" style={{textDecoration:'none',color:'inherit'}}>
-          
-          <ListItem button>
-          <ListItemIcon>
-            <MenuBookIcon htmlColor="#115293" />
-          </ListItemIcon>
-          <ListItemText primary="Documentation" />
-          </ListItem></Link>
 
-
-          <Link to="/results" style={{textDecoration:'none',color:'inherit'}}>
+          <Link to="/download" style={{textDecoration:'none',color:'inherit'}}>
             <ListItem button>
             <ListItemIcon>
-              <DescriptionIcon htmlColor="#115293" />
+              <GetAppIcon htmlColor="#115293" />
             </ListItemIcon>
-            <ListItemText primary="Results" />
+            <ListItemText primary="Download" />
             </ListItem>
           </Link>
           <Link to="/donate" style={{textDecoration:'none',color:'inherit'}}>
@@ -155,16 +142,6 @@ function ResponsiveDrawer(props) {
           
       </List>
       <Divider />
-      <List>
-      <Link to="/recover" style={{textDecoration:'none',color:'inherit'}}>
-            <ListItem button>
-            <ListItemIcon>
-            <CachedIcon htmlColor="#115293" />
-            </ListItemIcon>
-            <ListItemText primary="Recover Your Seed Phrase" />
-            </ListItem>
-          </Link>
-      </List>
     </div>
   );
 
@@ -222,12 +199,17 @@ function ResponsiveDrawer(props) {
       <main className={classes.content}>
          <div className={classes.toolbar} />
          <Switch>
+           {/* <Route exact path="/">
+           <Header />
+           </Route> */}
           <Route exact path="/try">
             <MnemonicMaker />
           </Route>
           <Route exact path="/analysis">
             <Text />
           </Route>
+            
+
           <Route exact path="/who">
           <WHOpage />
           </Route>
@@ -243,8 +225,8 @@ function ResponsiveDrawer(props) {
           <Route exact path="/disclaimer">
               <Disclaimer />
           </Route>
-          <Route exact path="/results">
-            <Results />
+          <Route exact path="/download">
+            <Download />
           </Route>
           <Route exact path="/recover">
             <RecoverSeed />

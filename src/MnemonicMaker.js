@@ -32,6 +32,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import {generateMnemonic12, generateMnemonic24} from 'metasafe-eth';
+import NoEncryptionIcon from '@material-ui/icons/NoEncryption';
+import CloseIcon from '@material-ui/icons/Close';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import RecoverSeed from './RecoverSeed';
+
 
 var ethers = require("ethers");
 const words240 = require("./240words");
@@ -108,56 +113,57 @@ export default class MnemonicMaker extends React.Component {
         <Grid item xs={12} md={4} lg={4} >
         <Card>
                 <CardHeader
-                  title="Personal Mnemonic"
-                  subheader="A safe ethereum mnemonic for personal use"
+                  title="Online Tool"
+                  subheader="Use our tool in your browser"
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
-                  action={<AccountCircleIcon color="secondary" />}
+                  action={<NoEncryptionIcon color="secondary" />}
                 />
                 <CardContent>
-                  <div >
+                  {/* <div >
                     <Typography component="h2" variant="h3" color="textPrimary">
                       FREE
                     </Typography>
-                  </div>
+                  </div> */}
                   <List component="nav">
         <ListItem button>
           <ListItemIcon>
             <CheckIcon htmlColor="#4caf50" />
           </ListItemIcon>
-          <ListItemText primary="Ideal for using dAPPS" />
+          <ListItemText primary="2048 attempts / seed phrase" />
         </ListItem>
         </List>
         <List component="nav">
         <ListItem button>
           <ListItemIcon>
-            <CheckIcon htmlColor="#4caf50" />
+            <CloseIcon htmlColor="#ce0000" />
           </ListItemIcon>
-          <ListItemText primary="Can be used for cold storage*" secondary="Recommended as long as cold storage measures are applied and is not used on a daily basis" />
+          <ListItemText primary="Custom Wallet Path"/>
         </ListItem>
         </List>
         <List component="nav">
         <ListItem button>
           <ListItemIcon>
-            <CheckIcon htmlColor="#4caf50" />
+          <CloseIcon htmlColor="#ce0000" />
           </ListItemIcon>
-          <ListItemText primary="Exponentially lowers the chances of brute-force" />
+          <ListItemText primary="See what is being analyzed" />
+        </ListItem>
+        </List>
+        <List component="nav">
+        <ListItem button>
+          <ListItemIcon>
+          <CloseIcon htmlColor="#ce0000" />
+          </ListItemIcon>
+          <ListItemText primary="Multiple Blockchain and API support" />
         </ListItem>
         </List>
         
+        
+        
                 </CardContent>
-                <CardActions>
-                <Button fullWidth
-        style={{marginTop:'5px', marginBottom:'10px'}}
-        variant="contained"
-        color="secondary"
-        // onClick={this.generateMnemonic}
-        onClick={() => this.setState({consecutiveLettersDialog:true})}
-        startIcon={<div><SecurityIcon/><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
-      >
-        Generate Free  Mnemonic  
-      </Button>
-                </CardActions>
+                {/* <CardActions>
+               
+                </CardActions> */}
                 <a style={{color:'grey',textDecoration:'none'}} href="/terms">Terms & Conditions apply</a> 
                 {/* {this.state.goodMnemonic !== '' ? this.state.goodMnemonic : <span />} */}
 
@@ -167,25 +173,20 @@ export default class MnemonicMaker extends React.Component {
          <Grid item xs={12} md={4} lg={4} >
         <Card>
                 <CardHeader
-                  title="Enterprise Mnemonic"
+                  title="Desktop Tool"
                   className="#"
-                  subheader="Safe ethereum mnemonics for companies"
+                  subheader="Use our tool on your machine"
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
-                  action={<BusinessIcon color="secondary" />}
+                  action={<VerifiedUserIcon htmlColor="green" />}
                 />
                 <CardContent>
-                  <div >
-                    <Typography component="h2" variant="h3" color="textPrimary">
-                      CONTACT US
-                    </Typography>
-                  </div>
                   <List component="nav">
         <ListItem button>
           <ListItemIcon>
             <CheckIcon htmlColor="#4caf50" />
           </ListItemIcon>
-          <ListItemText primary="Ideal for companies that need many safe accounts for their users such as exchanges" />
+          <ListItemText primary="4,194,304 attemps / seed phrase" />
         </ListItem>
         </List>
         <List component="nav">
@@ -193,7 +194,7 @@ export default class MnemonicMaker extends React.Component {
           <ListItemIcon>
             <CheckIcon htmlColor="#4caf50" />
           </ListItemIcon>
-          <ListItemText primary="Can be used for cold storage*" secondary="Recommended as long as cold storage measures are applied and is not used on a daily basis" />
+          <ListItemText primary="Custom Wallet Path"  />
         </ListItem>
         </List>
         <List component="nav">
@@ -201,7 +202,7 @@ export default class MnemonicMaker extends React.Component {
           <ListItemIcon>
             <CheckIcon htmlColor="#4caf50" />
           </ListItemIcon>
-          <ListItemText primary="Exponentially lowers the chances of brute-force" />
+          <ListItemText primary="See what is being analyzed" />
         </ListItem>
         </List>
 
@@ -210,162 +211,30 @@ export default class MnemonicMaker extends React.Component {
           <ListItemIcon>
             <CheckIcon htmlColor="#4caf50" />
           </ListItemIcon>
-          <ListItemText primary="MetaSafe Verified badge (blockchain-based)" secondary={<img width="25%" alt="MetaSafe Verified Badge" src={require('./icons/Badge.png')} />}>
+          <ListItemText primary="Multiple Blockchains and Custom API">
           </ListItemText>
         </ListItem>
         </List>
         
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant="outline" color="primary">
-                  <a href="mailto:ethmetasafe@gmail.com?Subject=Enterprise%20Mnemonic" target="_top">CONTACT US</a>
-                  </Button>
+                <Button fullWidth variant="contained" color="secondary">Download Now</Button>
+
                 </CardActions>
+                                <a style={{color:'grey',textDecoration:'none'}} href="/terms">Terms & Conditions apply</a> 
+
               </Card>
         </Grid>
         <Divider style={{width:'100%'}}/>
-        <Grid item xs={2} />
-        <Grid item xs={12} md={8}>
-        <h2>FAQ</h2>
-        <ExpansionPanel>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography >What is a brute-force attack?</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-            <blockquote>"In cryptography, a brute-force attack consists of an attacker submitting many passwords or passphrases with the hope of eventually guessing correctly."
-              </blockquote>
-              <cite><a style={{color:'grey'}} href="https://en.wikipedia.org/wiki/Brute-force_attack" rel="noopener noreferrer" target="_blank">Wikipedia.org</a></cite>
-          </Typography>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography >What are the chances of a mnemonic brute-force attack?</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-            Mathematically speaking mnemonics are very safe to brute-force attacks as it would take more time than the age of universe for a computer
-            to find the exact right combination. Unfortunately this calculation does not assume whether the hacker starts brute-forcing by not
-            starting from the beggining of all mnemonics and instead using a predeterministic input. 
-            For example, the mnemonic <blockquote>add wealth wealth wealth wealth wealth wealth wealth wealth wealth wealth wealth</blockquote>
-            is much easier to bruteforce compared to more complex mnemonics. Our service takes into consideration different deterministic parameters
-            of a mnemonic such as the <span style={{textDecoration:'underline'}}> number of repetitions</span>, <span style={{textDecoration:'underline'}}>the number of words coming from the first 10% </span> of all mnemonic words (the most bruteforced words),
-            <span style={{textDecoration:'underline'}}>number of words starting with a consencutive letter</span> and produces a secure mnemonic <span style={{fontWeight:'bold'}}>exponentially</span> more difficult to brute-force.
-          </Typography>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography >Why should I use MetaSafe mnemonics?</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-          It doesn't matter if you store your funds into a very secure wallet because if a hacker guesses your mnemonic they will be 
-            able to steal your funds and nobody can stop them. You should take all precautions to avoid such event to happen. If you have not read it yet, also read the previous question to understand 
-            why you must use MetaSafe. 
-          </Typography>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography >How many mnemonics are insecure?</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-          Using a standard mnemonic generator, we found out that 19.6% is a constant rate appearing and indicating mnemonics not meeting our safety parameters.
-          We analyzed over 100 MILLION mnemonics so far from which 19,632,106 were insecure. Aproximately 1/5 users have a wallet with a bad mnemonic. You can analyse 
-          yours using our Mnemonic Analyser or generate a new one using our free to use software. 
-          </Typography>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography >If I use MetaSafe mnemonics this is a guarantee that I will never be hacked ever again. Hooray!</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-          Cybersecurity is a process, not a one step solution. You should not rely just on MetaSafe to protect your funds and instead take 
-          other measures. MetaSafe mnemonics are just a step closer for better security but there is no guarantee. For example, if 
-          a malicious hacker convinces you through social engineering to give them your mnemonic you will lose your funds. Never share
-          your mnemonic and always use Ethereum wallets that are MetaSafe verified. 
-          </Typography>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
         </Grid>
-               
-          </Grid>
-          <Dialog
-          maxWidth={'sm'}
-          fullWidth={true}
-        open={this.state.consecutiveLettersDialog}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={this.handleCloseconsecutiveLetters}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="alert-dialog-slide-title">{<div>FREE <span style={{border:'1px solid black',textTransform:'none'}}>MetaSafe</span> MNEMONIC</div>}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
 
-<Grid container spacing={2}>
-<Grid item xs={6}>
-<Button fullWidth
-        style={{marginTop:'5px', marginBottom:'10px'}}
-        variant="contained"
-        color="primary"
-        // onClick={this.generateMnemonic}
-        onClick={this.generateMnemonic}
-        startIcon={<div><SecurityIcon/><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
-      >
-        Generate 12 Words  Mnemonic  
-      </Button>   
-      </Grid>   
-<Grid item xs={6}>    
-      <Button fullWidth
-        style={{marginTop:'5px', marginBottom:'10px'}}
-        variant="contained"
-        color="primary"
-        // onClick={this.generateMnemonic}
-        onClick={this.generateMnemonic24}
-        startIcon={<div><SecurityIcon/><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
-      >
-        Generate 24 Words  Mnemonic  
-      </Button>  
-      </Grid> 
-      </Grid>
-      <Divider />
-      {this.state.goodMnemonic !== '' ? this.state.goodMnemonic : <span />}
+      {/* <ul style={{textAlign:'left'}}>
+          <li>MetaSafe for Windows:        <a href={`https://www.dropbox.com/s/tduaa43gjhaamu2/MetaSafe-windows.rar?dl=1`}>Download (103 MB)</a></li>
+          <li>MetaSafe for MacOS:   Coming Soon </li>
+      </ul> */}
 
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleCloseconsecutiveLetters} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <RecoverSeed />
+
             {/* <h4> We've analysed over 100 million Ethereum mnemonics from which 19.6% did not meet our criteria
                 of security. Some mnemonics are exponentially easier to bruteforce. Don't lose your funds to a 
                 stupid mistake.  </h4> */}

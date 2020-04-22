@@ -10,6 +10,7 @@ import {
   // useRouteMatch
 } from "react-router-dom";
 
+
 function App() {
   return (
     <div className="App">
@@ -22,7 +23,6 @@ function App() {
           </Route>
           <Route exact path="/">
           <Header />
-
           </Route>
 
           <Route exact path="/terms">
@@ -48,6 +48,9 @@ function App() {
           </Route>
           <Route exact path="/disclaimer">
           <ResponsiveDrawer />
+          </Route>
+          <Route exact path="/download">
+            <ResponsiveDrawer />
           </Route>
      </Switch>
      </Router>

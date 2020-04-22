@@ -143,15 +143,10 @@ export default class Header extends React.Component {
       </Typography>  
         
       <a href="/try" style={{textDecoration:'none',color:'inherit'}}>
-      <Button fullWidth
-        style={{marginTop:'5px', marginBottom:'10px'}}
-        variant="contained"
-        color="secondary"
-        // onClick={this.generateMnemonic}
-        startIcon={<div><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
-      >
-        Try Now
-      </Button>   
+
+      <Button variant="contained" color="secondary">
+      Try Now
+      </Button>
       </a>
       <br />
              </Grid>
