@@ -108,7 +108,7 @@ export default class Header extends React.Component {
       <a href="/who" style={{textDecoration:'none',color:'inherit'}}>
 
       <Button variant="contained" color="secondary">
-      Search Compliance
+      Try Now
       </Button>
       <br /> <br />
       </a> 
@@ -148,9 +148,9 @@ export default class Header extends React.Component {
         variant="contained"
         color="secondary"
         // onClick={this.generateMnemonic}
-        startIcon={<div><SecurityIcon/><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
+        startIcon={<div><span style={{border:'1px solid white',textTransform:'none',color:'white'}}>MetaSafe</span></div>}
       >
-        Generate Seed Phrase  
+        Try Now
       </Button>   
       </a>
       <br />
