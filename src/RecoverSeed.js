@@ -207,7 +207,7 @@ render()
               <CloseIcon fontSize="inherit" />
             </IconButton>
           }>
-        For security reasons you should use the Desktop Tool.
+        For security reasons you should use the Desktop Tool
       </Alert>
                 </Collapse>
                         
