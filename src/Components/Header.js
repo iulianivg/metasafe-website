@@ -51,7 +51,7 @@ export default class Header extends React.Component {
           Download
           </Button>
           </a>
-          <a href="/donate" style={{textDecoration:'none',color:'inherit'}}>
+          <a href="https://commerce.coinbase.com/checkout/2e098e34-a799-40ca-826f-81c9d10d7d8e" target="_blank"  rel='noopener noreferrer' style={{textDecoration:'none',color:'inherit'}}>
           <Button color="inherit">
           Donate
           </Button>
@@ -74,7 +74,7 @@ export default class Header extends React.Component {
               Seed Phrase Recovery
             </Typography>
             <Typography variant="h5" align="center" style={{color:'white'}} paragraph>
-              A service for those who forgot their seed phrase
+            Recover any seed phrase you lost or you will ever lose again
             </Typography>
             </Container>
             <div style={{width:'100%',position:'absolute',height:'100%',backgroundImage:`url(${LED})`,bottom:'100px',transform:'skewY(-5deg)'}}>

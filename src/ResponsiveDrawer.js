@@ -130,14 +130,14 @@ function ResponsiveDrawer(props) {
             <ListItemText primary="Download" />
             </ListItem>
           </Link>
-          <Link to="/donate" style={{textDecoration:'none',color:'inherit'}}>
+          <a href="https://commerce.coinbase.com/checkout/2e098e34-a799-40ca-826f-81c9d10d7d8e" target="_blank"  rel='noopener noreferrer' style={{textDecoration:'none',color:'inherit'}}>
           
           <ListItem button>
           <ListItemIcon>
               <ThumbUpIcon htmlColor="#115293" />
           </ListItemIcon>
           <ListItemText primary="Support Us" />
-          </ListItem></Link>
+          </ListItem></a>
 
           
       </List>

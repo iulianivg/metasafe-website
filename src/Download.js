@@ -14,10 +14,10 @@ export default class Download extends React.Component {
 
             <Grid container spacing={3}>
             <Grid item xs={6}>
-            <a href={`https://www.dropbox.com/s/tduaa43gjhaamu2/MetaSafe-windows.rar?dl=1`}>
+            <a href={`https://www.dropbox.com/s/o07jr8mnsa6efxu/MetaSafe-windows.rar?dl=1`}>
             <img src={require('./icons/windows.png')} width="25%" />
             </a>
-            <h4><a href={`https://www.dropbox.com/s/tduaa43gjhaamu2/MetaSafe-windows.rar?dl=1`}>Download (103 MB)</a> for Windows</h4>
+            <h4><a href={`https://www.dropbox.com/s/o07jr8mnsa6efxu/MetaSafe-windows.rar?dl=1`}>Download (104 MB)</a> for Windows</h4>
             </Grid>
             <Grid item xs={6}>
             <img src={require('./icons/mac.png')} width="25%" />
