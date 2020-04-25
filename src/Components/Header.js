@@ -8,7 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import Laptop from '../icons/laptop_image.png';
+import Laptop from '../icons/laptop_again.svg';
 import Clientside from '../icons/client_side.png';
 import Video from '../icons/video.mp4';
 import SpeedIcon from '@material-ui/icons/Speed';
