@@ -29,6 +29,9 @@ export default class Download extends React.Component {
             <Grid item xs={12}>
             <img src={require('./icons/linux.png')} width="15%" />
             <h4>Download for Linux</h4>
+            <Typography variant="subtitle" color="textSecondary" gutterBottom>
+        Coming soon
+      </Typography>
             </Grid>
             </Grid>
         </div>

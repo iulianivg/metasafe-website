@@ -15,24 +15,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import ListAltTwoToneIcon from '@material-ui/icons/ListAltTwoTone';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CachedIcon from '@material-ui/icons/Cached';
-import DescriptionIcon from '@material-ui/icons/Description';
-import Text from './Text';
 import MnemonicMaker from './MnemonicMaker';
 import Download from './Download.js';
-import Results from './Results';
-import WHOpage from './WHO.js';
 import Terms from './Terms.js';
-import Donate from './Donate.js';
-import Documentation from './Documentation.js';
-import RecoverSeed from './RecoverSeed.js';
 import Disclaimer from './Disclaimer';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import Header from './Components/Header';
 
 
 import {
@@ -205,31 +194,19 @@ function ResponsiveDrawer(props) {
           <Route exact path="/try">
             <MnemonicMaker />
           </Route>
-          <Route exact path="/analysis">
-            <Text />
-          </Route>
+=
             
 
-          <Route exact path="/who">
-          <WHOpage />
-          </Route>
+          
           <Route exact path="/terms">
               <Terms />
           </Route>
-          <Route exact path="/documentation" >
-              <Documentation />
-          </Route>
-          <Route exact path="/donate">
-              <Donate />
-          </Route>
+         
           <Route exact path="/disclaimer">
               <Disclaimer />
           </Route>
           <Route exact path="/download">
             <Download />
-          </Route>
-          <Route exact path="/recover">
-            <RecoverSeed />
           </Route>
         </Switch>
             {/* {tabOpen === 1 ?         <MnemonicMaker /> : tabOpen=== 2 ? <Text /> :  tabOpen === 3 ? <WHOpage /> : <span />} */}

@@ -1,49 +1,22 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import SecurityIcon from '@material-ui/icons/Security';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import Typography from '@material-ui/core/Typography';
-import Alert from '@material-ui/lab/Alert';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CheckIcon from '@material-ui/icons/Check';
-import BusinessIcon from '@material-ui/icons/Business';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Paper from '@material-ui/core/Paper';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import RepeatIcon from '@material-ui/icons/Repeat';
-import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
-import LowPriorityIcon from '@material-ui/icons/LowPriority';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
 import {generateMnemonic12, generateMnemonic24} from 'metasafe-eth';
 import NoEncryptionIcon from '@material-ui/icons/NoEncryption';
 import CloseIcon from '@material-ui/icons/Close';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import RecoverSeed from './RecoverSeed';
 
-
-var ethers = require("ethers");
-const words240 = require("./240words");
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 
 export default class MnemonicMaker extends React.Component {

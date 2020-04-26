@@ -5,8 +5,6 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import MenuIcon from '@material-ui/icons/Menu';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Laptop from '../icons/laptop_again.svg';
 import Clientside from '../icons/client_side.png';
@@ -16,7 +14,6 @@ import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import EvStationIcon from '@material-ui/icons/EvStation';
 import Blockchain from '../icons/moreCrypto.png';
 import Paper from '@material-ui/core/Paper';
-import SecurityIcon from '@material-ui/icons/Security';
 import LED from '../icons/led.jpeg';
 
 
@@ -73,8 +70,11 @@ export default class Header extends React.Component {
             <Typography component="h1" variant="h2" align="center" style={{color:'white'}} gutterBottom>
               Seed Phrase Recovery
             </Typography>
+            {/* <Typography variant="h5" align="center" style={{color:'white'}} paragraph>
+            Get access to those millions.
+            </Typography> */}
             <Typography variant="h5" align="center" style={{color:'white'}} paragraph>
-            Recover any seed phrase you lost or you will ever lose again
+            Recover any seed phrase you lost <span style={{fontWeight:'bold'}}>or you will ever lose again</span>
             </Typography>
             </Container>
             <div style={{width:'100%',position:'absolute',height:'100%',backgroundImage:`url(${LED})`,bottom:'100px',transform:'skewY(-5deg)'}}>
@@ -233,13 +233,16 @@ export default class Header extends React.Component {
         agency, we can help you to recover your seed phrase. 
       </Typography>  
       <a href="/try" style={{textDecoration:'none',color:'inherit'}}>
-
       <Button color="primary" variant="contained">
           Try Now
           </Button>
+          <br /> 
+          
           </a>
+
             </Paper>
             </Container>
+
             </div>
 
 
