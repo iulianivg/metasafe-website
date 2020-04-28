@@ -52,6 +52,13 @@ export default class Header extends React.Component {
           <Button color="inherit">
           Donate
           </Button>
+          <a href="mailto:ethmetasafe@gmail.com?Subject=Metasafe.org" target="_top" style={{textDecoration:'none',color:'inherit'}}>
+          <Button color="inherit">
+            Contact Us
+          </Button>
+
+          </a>
+
           </a>
           </nav>
           {/* <Typography variant="h6" noWrap  >
